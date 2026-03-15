@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bmoey20amcdqi"]
+
+[ext_resource type="Script" uid="uid://dgu7kpasysh5y" path="res://scripts/Unit.gd" id="1_qgilm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6e3tn"]
+size = Vector2(40, 40)
+
+[node name="Unit" type="CharacterBody2D" unique_id=516484284 groups=["units"]]
+script = ExtResource("1_qgilm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=88719109]
+shape = SubResource("RectangleShape2D_6e3tn")
+
+[node name="Visual" type="Polygon2D" parent="." unique_id=1784332350]
+color = Color(5.2943824e-07, 0.4387312, 0.50773627, 1)
+polygon = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+
+[node name="Label" type="Label" parent="." unique_id=574026117]
+offset_left = -35.0
+offset_top = -45.0
+offset_right = 5.0
+offset_bottom = -22.0
+text = "Unit"
