@@ -47,15 +47,3 @@ If the main scene is not set:
 - Set the main scene to:
 res://scenes/main.tscn
 
-
-
-
-Project Folder Structure
-res://
-  art/           # images, sprites, backgrounds
-  scenes/        # main scenes
-    buildings/
-    ui/
-    units/
-  scripts/       # GDScript files
-  ui/            # additional UI assets/files if needed
