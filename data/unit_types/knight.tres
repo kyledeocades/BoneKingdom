@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UnitTypeStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/UnitTypeStats.gd" id="1_4hgrq"]
+
+[resource]
+script = ExtResource("1_4hgrq")
+unit_id = "knight"
+player_name = "Skeleton Knight"
+enemy_name = "Shield Guard"
+cost = 120
+max_health = 150
+damage = 15
+move_speed = 35.0
+attack_range = 35.0
+attack_cooldown = 1.2
+is_worker = false
+gather_rate = 10
+gather_cooldown = 2.0
+sort_order = 30
+player_spawn_enabled = true
+enemy_ai_enabled = true

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="UnitTypeStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/UnitTypeStats.gd" id="1_3vkmp"]
+
+[resource]
+script = ExtResource("1_3vkmp")
+unit_id = "collector"
+player_name = "Bone Collector"
+enemy_name = "Peasant"
+cost = 50
+max_health = 50
+damage = 0
+move_speed = 40.0
+attack_range = 0.0
+attack_cooldown = 1.0
+is_worker = true
+gather_rate = 10
+gather_cooldown = 2.0
+sort_order = 10
+player_spawn_enabled = true
+enemy_ai_enabled = true

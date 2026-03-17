@@ -88,7 +88,7 @@ func handle_worker(_delta):
 		else:
 			move_toward_target(enemy_base.global_position)
 			if global_position.distance_to(enemy_base.global_position) < 40:
-				main.enemy_bones += gather_rate
+				main.add_enemy_bones(gather_rate)
 				carrying_bones = false
 
 func move_toward_target(target_pos: Vector2):

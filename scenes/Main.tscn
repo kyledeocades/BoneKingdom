@@ -3,12 +3,21 @@
 [ext_resource type="Script" uid="uid://csc2t0e3vxcfj" path="res://scripts/Main.gd" id="1_0bbpv"]
 [ext_resource type="Texture2D" uid="uid://joxfmh3kmhb1" path="res://bg2d.jpg" id="2_rarhs"]
 [ext_resource type="Script" uid="uid://b88gn33jpbcjm" path="res://scripts/Base.gd" id="3_vcsgt"]
+[ext_resource type="Script" path="res://scripts/GameState.gd" id="4_xh4fi"]
+[ext_resource type="Script" path="res://scripts/CameraController.gd" id="5_7hdb4"]
+[ext_resource type="Script" path="res://scripts/UnitCatalog.gd" id="6_0v5jc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(100, 300)
 
 [node name="Main" type="Node2D" unique_id=188108565 groups=["main"]]
 script = ExtResource("1_0bbpv")
+
+[node name="GameState" type="Node" parent="." unique_id=902251510]
+script = ExtResource("4_xh4fi")
+
+[node name="UnitCatalog" type="Node" parent="." unique_id=1850744089]
+script = ExtResource("6_0v5jc")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1213784102]
 texture_repeat = 3
@@ -29,6 +38,12 @@ position = Vector2(340, 500)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=117046502]
 position = Vector2(640, 360)
+
+[node name="CameraController" type="Node" parent="." unique_id=206115942]
+script = ExtResource("5_7hdb4")
+camera_path = NodePath("../Camera2D")
+left_anchor_path = NodePath("../PlayerSpawn")
+right_anchor_path = NodePath("../EnemySpawn")
 
 [node name="PlayerBase" type="CharacterBody2D" parent="." unique_id=96499316]
 position = Vector2(120, 500)
@@ -102,25 +117,3 @@ offset_left = 20.0
 offset_top = 60.0
 offset_right = 60.0
 offset_bottom = 100.0
-
-[node name="SpawnCollectorButton" type="Button" parent="UI/SpawnButtons" unique_id=713360363]
-layout_mode = 2
-text = "Bone Collector"
-
-[node name="SpawnSwordsmanButton" type="Button" parent="UI/SpawnButtons" unique_id=353710458]
-layout_mode = 2
-text = "Skeleton Swordsman
-"
-
-[node name="SpawnKnightButton" type="Button" parent="UI/SpawnButtons" unique_id=2015670625]
-layout_mode = 2
-text = "Skeleton Knight"
-
-[node name="SpawnCatapultButton" type="Button" parent="UI/SpawnButtons" unique_id=1074159515]
-layout_mode = 2
-text = "Skull Catapult"
-
-[connection signal="pressed" from="UI/SpawnButtons/SpawnCollectorButton" to="." method="_on_spawn_collector_button_pressed"]
-[connection signal="pressed" from="UI/SpawnButtons/SpawnSwordsmanButton" to="." method="_on_spawn_swordsman_button_pressed"]
-[connection signal="pressed" from="UI/SpawnButtons/SpawnKnightButton" to="." method="_on_spawn_knight_button_pressed"]
-[connection signal="pressed" from="UI/SpawnButtons/SpawnCatapultButton" to="." method="_on_spawn_catapult_button_pressed"]

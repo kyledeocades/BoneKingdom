@@ -1,168 +1,100 @@
 extends Node2D
 
-var bones: int = 500
-var enemy_bones: int = 500
-var game_over: bool = false
-var is_dragging: bool = false
-
-@export var camera_move_speed: float = 500.0
-@export var camera_drag_sensitivity: float = 1.0
-@export var camera_min_margin: float = 80.0
-@export var camera_max_margin: float = 80.0
-
+@onready var game_state = $GameState
+@onready var unit_catalog = $UnitCatalog
 @onready var bones_label = $UI/BonesLabel
 @onready var result_label = $UI/ResultLabel
+@onready var spawn_buttons = $UI/SpawnButtons
 @onready var player_spawn = $PlayerSpawn
 @onready var enemy_spawn = $EnemySpawn
-@onready var camera = $Camera2D
 @onready var unit_scene = preload("res://scenes/units/Unit.tscn")
 
 func _ready():
-	result_label.visible = false
-	result_label.text = ""
-	update_ui()
+	game_state.bones_changed.connect(_on_bones_changed)
+	game_state.result_changed.connect(_on_result_changed)
+	_on_bones_changed(game_state.bones)
+	_on_result_changed(game_state.result_text, game_state.game_over)
+	build_spawn_buttons()
 	start_enemy_spawn_loop()
 
-func _process(delta):
-	handle_camera_movement(delta)
-
-	if game_over:
+func _process(_delta):
+	if game_state.game_over:
 		return
 	
 	check_win_loss()
-	update_ui()
-
-func _unhandled_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		is_dragging = event.pressed
-	elif event is InputEventMouseMotion and is_dragging:
-		move_camera_by(-event.relative.x * camera_drag_sensitivity)
-	elif event is InputEventScreenTouch:
-		is_dragging = event.pressed
-	elif event is InputEventScreenDrag:
-		move_camera_by(-event.relative.x * camera_drag_sensitivity)
-
-func handle_camera_movement(delta: float):
-	var direction := 0.0
-
-	if Input.is_action_pressed("ui_left") or Input.is_key_pressed(KEY_A):
-		direction -= 1.0
-	if Input.is_action_pressed("ui_right") or Input.is_key_pressed(KEY_D):
-		direction += 1.0
-
-	if direction != 0.0:
-		move_camera_by(direction * camera_move_speed * delta)
-
-func move_camera_by(amount: float):
-	var min_x = player_spawn.global_position.x - camera_min_margin
-	var max_x = enemy_spawn.global_position.x + camera_max_margin
-
-	if min_x > max_x:
-		var center = (min_x + max_x) * 0.5
-		min_x = center
-		max_x = center
-
-	camera.global_position.x = clamp(camera.global_position.x + amount, min_x, max_x)
 
 func add_bones(amount: int):
-	bones += amount
-	update_ui()
+	game_state.add_bones(amount)
 
-func update_ui():
-	bones_label.text = "Bones: " + str(bones)
+func add_enemy_bones(amount: int):
+	game_state.add_enemy_bones(amount)
+
+func _on_bones_changed(new_bones: int):
+	bones_label.text = "Bones: " + str(new_bones)
+
+func _on_result_changed(new_text: String, is_visible: bool):
+	result_label.text = new_text
+	result_label.visible = is_visible
+
+func build_spawn_buttons():
+	for child in spawn_buttons.get_children():
+		child.queue_free()
+
+	for stats in unit_catalog.get_player_spawn_units():
+		var button = Button.new()
+		button.text = "%s (%d)" % [stats.player_name, stats.cost]
+		button.pressed.connect(_on_spawn_unit_button_pressed.bind(stats.unit_id))
+		spawn_buttons.add_child(button)
+
+func _on_spawn_unit_button_pressed(unit_id: String):
+	spawn_player_unit(unit_id)
 
 func spawn_player_unit(unit_type: String):
-	if game_over:
+	if game_state.game_over:
+		return
+
+	var stats = unit_catalog.get_stats(unit_type)
+	if stats == null:
 		return
 	
-	var cost = get_unit_cost(unit_type)
-	if bones < cost:
+	if not game_state.try_spend_bones(stats.cost):
 		return
-	
-	bones -= cost
 	
 	var unit = unit_scene.instantiate()
-	setup_unit(unit, unit_type, "player")
+	setup_unit(unit, stats, "player")
 	unit.global_position = player_spawn.global_position
 	add_child(unit)
 
 func spawn_enemy_unit(unit_type: String):
-	if game_over:
+	if game_state.game_over:
+		return
+
+	var stats = unit_catalog.get_stats(unit_type)
+	if stats == null:
 		return
 	
-	var cost = get_enemy_unit_cost(unit_type)
-	if enemy_bones < cost:
+	if not game_state.try_spend_enemy_bones(stats.cost):
 		return
-	
-	enemy_bones -= cost
 	
 	var unit = unit_scene.instantiate()
-	setup_unit(unit, unit_type, "enemy")
+	setup_unit(unit, stats, "enemy")
 	unit.global_position = enemy_spawn.global_position
 	add_child(unit)
 
-func setup_unit(unit, unit_type: String, team: String):
+func setup_unit(unit, stats: UnitTypeStats, team: String):
 	unit.team = team
-	
-	match unit_type:
-		"collector":
-			unit.unit_name = "Bone Collector" if team == "player" else "Peasant"
-			unit.max_health = 50
-			unit.current_health = 50
-			unit.damage = 0
-			unit.move_speed = 40
-			unit.attack_range = 0
-			unit.attack_cooldown = 1.0
-			unit.is_worker = true
-			unit.gather_rate = 10
-			unit.gather_cooldown = 2.0
-		
-		"swordsman":
-			unit.unit_name = "Skeleton Swordsman" if team == "player" else "Footman"
-			unit.max_health = 80
-			unit.current_health = 80
-			unit.damage = 10
-			unit.move_speed = 55
-			unit.attack_range = 35
-			unit.attack_cooldown = 1.0
-			unit.is_worker = false
-		
-		"knight":
-			unit.unit_name = "Skeleton Knight" if team == "player" else "Shield Guard"
-			unit.max_health = 150
-			unit.current_health = 150
-			unit.damage = 15
-			unit.move_speed = 35
-			unit.attack_range = 35
-			unit.attack_cooldown = 1.2
-			unit.is_worker = false
-		
-		"catapult":
-			unit.unit_name = "Skull Catapult" if team == "player" else "Archer"
-			unit.max_health = 70
-			unit.current_health = 70
-			unit.damage = 20
-			unit.move_speed = 30
-			unit.attack_range = 120
-			unit.attack_cooldown = 1.5
-			unit.is_worker = false
+	unit.unit_name = stats.player_name if team == "player" else stats.enemy_name
+	unit.max_health = stats.max_health
+	unit.current_health = stats.max_health
+	unit.damage = stats.damage
+	unit.move_speed = stats.move_speed
+	unit.attack_range = stats.attack_range
+	unit.attack_cooldown = stats.attack_cooldown
+	unit.is_worker = stats.is_worker
+	unit.gather_rate = stats.gather_rate
+	unit.gather_cooldown = stats.gather_cooldown
 	
 	unit.update_label()
-
-func get_unit_cost(unit_type: String) -> int:
-	match unit_type:
-		"collector":
-			return 50
-		"swordsman":
-			return 75
-		"knight":
-			return 120
-		"catapult":
-			return 150
-	return 999
-
-func get_enemy_unit_cost(unit_type: String) -> int:
-	return get_unit_cost(unit_type)
 
 func start_enemy_spawn_loop():
 	var timer = Timer.new()
@@ -173,21 +105,42 @@ func start_enemy_spawn_loop():
 	add_child(timer)
 
 func _on_enemy_spawn_timer_timeout():
-	if game_over:
+	if game_state.game_over:
 		return
-	
-	if enemy_bones >= 50 and count_enemy_workers() < 2:
-		spawn_enemy_unit("collector")
+
+	var worker_id = get_affordable_enemy_worker_unit_id()
+	if count_enemy_workers() < 2 and not worker_id.is_empty():
+		spawn_enemy_unit(worker_id)
 		return
-	
-	var roll = randi() % 3
-	
-	if roll == 0 and enemy_bones >= 75:
-		spawn_enemy_unit("swordsman")
-	elif roll == 1 and enemy_bones >= 120:
-		spawn_enemy_unit("knight")
-	elif roll == 2 and enemy_bones >= 150:
-		spawn_enemy_unit("catapult")
+
+	var combat_id = get_random_affordable_enemy_combat_unit_id()
+	if not combat_id.is_empty():
+		spawn_enemy_unit(combat_id)
+
+func get_affordable_enemy_worker_unit_id() -> String:
+	var selected: UnitTypeStats = null
+	for stats in unit_catalog.get_enemy_ai_units():
+		if not stats.is_worker:
+			continue
+		if stats.cost > game_state.enemy_bones:
+			continue
+		if selected == null or stats.cost < selected.cost:
+			selected = stats
+
+	return "" if selected == null else selected.unit_id
+
+func get_random_affordable_enemy_combat_unit_id() -> String:
+	var affordable: Array[String] = []
+	for stats in unit_catalog.get_enemy_ai_units():
+		if stats.is_worker:
+			continue
+		if stats.cost <= game_state.enemy_bones:
+			affordable.append(stats.unit_id)
+
+	if affordable.is_empty():
+		return ""
+
+	return affordable[randi() % affordable.size()]
 
 func count_enemy_workers() -> int:
 	var count = 0
@@ -203,22 +156,6 @@ func check_win_loss():
 	var enemy_base = get_node_or_null("EnemyBase")
 	
 	if enemy_base == null:
-		game_over = true
-		result_label.text = "YOU WIN"
-		result_label.visible = true
+		game_state.set_game_result("YOU WIN")
 	elif player_base == null:
-		game_over = true
-		result_label.text = "YOU LOSE"
-		result_label.visible = true
-
-func _on_spawn_collector_button_pressed():
-	spawn_player_unit("collector")
-
-func _on_spawn_swordsman_button_pressed():
-	spawn_player_unit("swordsman")
-
-func _on_spawn_knight_button_pressed():
-	spawn_player_unit("knight")
-
-func _on_spawn_catapult_button_pressed():
-	spawn_player_unit("catapult")
+		game_state.set_game_result("YOU LOSE")
