@@ -11,9 +11,12 @@ size = Vector2(100, 300)
 script = ExtResource("1_0bbpv")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1213784102]
-position = Vector2(640, 200)
+texture_repeat = 3
+position = Vector2(-42, 200.00002)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_rarhs")
+region_enabled = true
+region_rect = Rect2(0, 0, 4000, 720)
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=935618741]
 position = Vector2(220, 500)
@@ -23,6 +26,9 @@ position = Vector2(1060, 500)
 
 [node name="BonePile" type="Marker2D" parent="." unique_id=738414046]
 position = Vector2(340, 500)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=117046502]
+position = Vector2(640, 360)
 
 [node name="PlayerBase" type="CharacterBody2D" parent="." unique_id=96499316]
 position = Vector2(120, 500)
@@ -87,9 +93,9 @@ offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 56
+text = "..."
 horizontal_alignment = 1
 vertical_alignment = 1
-text = "..."
 
 [node name="SpawnButtons" type="HBoxContainer" parent="UI" unique_id=1230775894]
 offset_left = 20.0

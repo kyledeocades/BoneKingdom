@@ -3,23 +3,66 @@ extends Node2D
 var bones: int = 500
 var enemy_bones: int = 500
 var game_over: bool = false
+var is_dragging: bool = false
+
+@export var camera_move_speed: float = 500.0
+@export var camera_drag_sensitivity: float = 1.0
+@export var camera_min_margin: float = 80.0
+@export var camera_max_margin: float = 80.0
 
 @onready var bones_label = $UI/BonesLabel
 @onready var result_label = $UI/ResultLabel
 @onready var player_spawn = $PlayerSpawn
 @onready var enemy_spawn = $EnemySpawn
+@onready var camera = $Camera2D
 @onready var unit_scene = preload("res://scenes/units/Unit.tscn")
 
 func _ready():
+	result_label.visible = false
+	result_label.text = ""
 	update_ui()
 	start_enemy_spawn_loop()
 
-func _process(_delta):
+func _process(delta):
+	handle_camera_movement(delta)
+
 	if game_over:
 		return
 	
 	check_win_loss()
 	update_ui()
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		is_dragging = event.pressed
+	elif event is InputEventMouseMotion and is_dragging:
+		move_camera_by(-event.relative.x * camera_drag_sensitivity)
+	elif event is InputEventScreenTouch:
+		is_dragging = event.pressed
+	elif event is InputEventScreenDrag:
+		move_camera_by(-event.relative.x * camera_drag_sensitivity)
+
+func handle_camera_movement(delta: float):
+	var direction := 0.0
+
+	if Input.is_action_pressed("ui_left") or Input.is_key_pressed(KEY_A):
+		direction -= 1.0
+	if Input.is_action_pressed("ui_right") or Input.is_key_pressed(KEY_D):
+		direction += 1.0
+
+	if direction != 0.0:
+		move_camera_by(direction * camera_move_speed * delta)
+
+func move_camera_by(amount: float):
+	var min_x = player_spawn.global_position.x - camera_min_margin
+	var max_x = enemy_spawn.global_position.x + camera_max_margin
+
+	if min_x > max_x:
+		var center = (min_x + max_x) * 0.5
+		min_x = center
+		max_x = center
+
+	camera.global_position.x = clamp(camera.global_position.x + amount, min_x, max_x)
 
 func add_bones(amount: int):
 	bones += amount
@@ -162,9 +205,11 @@ func check_win_loss():
 	if enemy_base == null:
 		game_over = true
 		result_label.text = "YOU WIN"
+		result_label.visible = true
 	elif player_base == null:
 		game_over = true
 		result_label.text = "YOU LOSE"
+		result_label.visible = true
 
 func _on_spawn_collector_button_pressed():
 	spawn_player_unit("collector")
