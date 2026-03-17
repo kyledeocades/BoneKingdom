@@ -1,3 +1,28 @@
-# Godot 4+ specific ignores
+# Godot 4+ cache and export output
 .godot/
 /android/
+/build/
+/exports/
+
+# Godot C# / Mono artifacts (safe even for GDScript-only projects)
+/.mono/
+/data_*/
+/mono_crash.*.json
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~

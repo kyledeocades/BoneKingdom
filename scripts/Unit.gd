@@ -20,7 +20,13 @@ var carrying_bones: bool = false
 
 func _ready():
 	current_health = max_health
+	configure_collision_behavior()
 	update_label()
+
+func configure_collision_behavior():
+	# Unit-to-unit physics blocking causes lane deadlocks; combat is range-driven.
+	collision_layer = 0
+	collision_mask = 0
 
 func _physics_process(delta):
 	attack_timer -= delta
@@ -31,12 +37,12 @@ func _physics_process(delta):
 	else:
 		handle_combat_unit(delta)
 
-func handle_combat_unit(delta):
+func handle_combat_unit(_delta):
 	var target = get_nearest_enemy()
 	if target == null:
 		return
 
-	var dist = global_position.distance_to(target.global_position)
+	var dist = get_attack_distance_to(target)
 
 	if dist > attack_range:
 		var direction = (target.global_position - global_position).normalized()
@@ -48,7 +54,7 @@ func handle_combat_unit(delta):
 			target.take_damage(damage)
 			attack_timer = attack_cooldown
 
-func handle_worker(delta):
+func handle_worker(_delta):
 	var main = get_tree().get_first_node_in_group("main")
 	if main == null:
 		return
@@ -89,6 +95,27 @@ func move_toward_target(target_pos: Vector2):
 	var direction = (target_pos - global_position).normalized()
 	velocity = direction * move_speed
 	move_and_slide()
+
+func get_attack_distance_to(target: Node2D) -> float:
+	var center_dist = global_position.distance_to(target.global_position)
+	var self_radius = get_collision_radius(self)
+	var target_radius = get_collision_radius(target)
+	return max(0.0, center_dist - self_radius - target_radius)
+
+func get_collision_radius(body: Node) -> float:
+	var collision_shape: CollisionShape2D = body.get_node_or_null("CollisionShape2D")
+	if collision_shape == null or collision_shape.shape == null:
+		return 0.0
+
+	var shape = collision_shape.shape
+	if shape is RectangleShape2D:
+		return min(shape.size.x, shape.size.y) * 0.5
+	if shape is CircleShape2D:
+		return shape.radius
+	if shape is CapsuleShape2D:
+		return shape.radius
+
+	return 0.0
 
 func get_nearest_enemy():
 	var units = get_tree().get_nodes_in_group("units")

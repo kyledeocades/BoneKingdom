@@ -1,7 +1,7 @@
 extends Node2D
 
-var bones: int = 100
-var enemy_bones: int = 100
+var bones: int = 500
+var enemy_bones: int = 500
 var game_over: bool = false
 
 @onready var bones_label = $UI/BonesLabel
@@ -14,7 +14,7 @@ func _ready():
 	update_ui()
 	start_enemy_spawn_loop()
 
-func _process(delta):
+func _process(_delta):
 	if game_over:
 		return
 	

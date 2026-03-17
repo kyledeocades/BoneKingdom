@@ -75,10 +75,20 @@ offset_bottom = 43.0
 text = "Bones: 100"
 
 [node name="ResultLabel" type="Label" parent="UI" unique_id=1632274019]
-offset_left = 560.0
-offset_top = 40.0
-offset_right = 600.0
-offset_bottom = 63.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -50.0
+offset_right = 300.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 56
+horizontal_alignment = 1
+vertical_alignment = 1
 text = "..."
 
 [node name="SpawnButtons" type="HBoxContainer" parent="UI" unique_id=1230775894]
