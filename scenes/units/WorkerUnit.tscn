@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/units/WorkerUnit.gd" id="1_worker"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6e3tn"]
+size = Vector2(40, 40)
+
+[node name="WorkerUnit" type="CharacterBody2D" groups=["units"]]
+script = ExtResource("1_worker")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6e3tn")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.2784, 0.5588, 0.302, 1)
+polygon = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -35.0
+offset_top = -45.0
+offset_right = 5.0
+offset_bottom = -22.0
+text = "Worker"

@@ -1,23 +1,47 @@
 [gd_scene format=3 uid="uid://cgtvp7i81hsmc"]
 
-[ext_resource type="Script" uid="uid://csc2t0e3vxcfj" path="res://scripts/Main.gd" id="1_0bbpv"]
+[ext_resource type="Script" path="res://scripts/controllers/GameController.gd" id="1_game_controller"]
 [ext_resource type="Texture2D" uid="uid://joxfmh3kmhb1" path="res://bg2d.jpg" id="2_rarhs"]
-[ext_resource type="Script" uid="uid://b88gn33jpbcjm" path="res://scripts/Base.gd" id="3_vcsgt"]
-[ext_resource type="Script" path="res://scripts/GameState.gd" id="4_xh4fi"]
-[ext_resource type="Script" path="res://scripts/CameraController.gd" id="5_7hdb4"]
-[ext_resource type="Script" path="res://scripts/UnitCatalog.gd" id="6_0v5jc"]
+[ext_resource type="Script" uid="uid://b88gn33jpbcjm" path="res://scripts/units/Base.gd" id="3_vcsgt"]
+[ext_resource type="Script" path="res://scripts/services/GameState.gd" id="4_xh4fi"]
+[ext_resource type="Script" path="res://scripts/controllers/CameraController.gd" id="5_7hdb4"]
+[ext_resource type="Script" path="res://scripts/managers/UnitCatalog.gd" id="6_0v5jc"]
+[ext_resource type="Script" path="res://scripts/services/GameEventBus.gd" id="7_event_bus"]
+[ext_resource type="Script" path="res://scripts/managers/SpawnManager.gd" id="8_spawn_mgr"]
+[ext_resource type="Script" path="res://scripts/managers/UnitManager.gd" id="9_unit_mgr"]
+[ext_resource type="Script" path="res://scripts/systems/CombatSystem.gd" id="10_combat_sys"]
+[ext_resource type="Script" path="res://scripts/systems/WorkerSystem.gd" id="11_worker_sys"]
+[ext_resource type="Script" path="res://scripts/ui/UIController.gd" id="12_ui_ctrl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(100, 300)
 
 [node name="Main" type="Node2D" unique_id=188108565 groups=["main"]]
-script = ExtResource("1_0bbpv")
+script = ExtResource("1_game_controller")
+
+[node name="GameEventBus" type="Node" parent="." unique_id=9999999]
+script = ExtResource("7_event_bus")
 
 [node name="GameState" type="Node" parent="." unique_id=902251510]
 script = ExtResource("4_xh4fi")
 
 [node name="UnitCatalog" type="Node" parent="." unique_id=1850744089]
 script = ExtResource("6_0v5jc")
+
+[node name="SpawnManager" type="Node" parent="." unique_id=8888888]
+script = ExtResource("8_spawn_mgr")
+
+[node name="UnitManager" type="Node" parent="." unique_id=7777777]
+script = ExtResource("9_unit_mgr")
+
+[node name="CombatSystem" type="Node" parent="." unique_id=6666666]
+script = ExtResource("10_combat_sys")
+
+[node name="WorkerSystem" type="Node" parent="." unique_id=5555555]
+script = ExtResource("11_worker_sys")
+
+[node name="UIController" type="Node" parent="." unique_id=4444444]
+script = ExtResource("12_ui_ctrl")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1213784102]
 texture_repeat = 3
