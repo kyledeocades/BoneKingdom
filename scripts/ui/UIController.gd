@@ -50,11 +50,28 @@ func build_spawn_buttons(on_spawn_pressed: Callable) -> void:
 	if _unit_catalog == null:
 		return
 
+	var created_buttons: Array = []
+
 	for stats in _unit_catalog.get_player_spawn_units():
 		var button = Button.new()
 		button.text = "%s (%d)" % [stats.player_name, stats.cost]
+		button.focus_mode = Control.FOCUS_ALL
+		# Prevent directional navigation with arrow keys while keeping tab traversal.
+		button.focus_neighbor_left = NodePath(".")
+		button.focus_neighbor_right = NodePath(".")
+		button.focus_neighbor_top = NodePath(".")
+		button.focus_neighbor_bottom = NodePath(".")
 		button.pressed.connect(on_spawn_pressed.bind(stats.unit_id))
 		spawn_buttons.add_child(button)
+		created_buttons.append(button)
+
+	for i in range(created_buttons.size()):
+		var current = created_buttons[i]
+		var previous = created_buttons[i - 1] if i > 0 else null
+		var next = created_buttons[i + 1] if i + 1 < created_buttons.size() else null
+
+		current.focus_previous = current.get_path_to(previous) if previous != null else NodePath("")
+		current.focus_next = current.get_path_to(next) if next != null else NodePath("")
 
 ## Update bones display
 func _on_bones_changed(new_bones: int) -> void:

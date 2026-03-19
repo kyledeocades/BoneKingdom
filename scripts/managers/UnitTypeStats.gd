@@ -1,4 +1,5 @@
 extends Resource
+class_name UnitTypeStats
 
 @export var unit_id: String = ""
 @export var player_name: String = ""

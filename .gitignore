@@ -3,6 +3,7 @@
 /android/
 /build/
 /exports/
+export_presets.cfg
 
 # Godot C# / Mono artifacts (safe even for GDScript-only projects)
 /.mono/

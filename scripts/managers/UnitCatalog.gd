@@ -1,4 +1,5 @@
 extends Node
+const UnitTypeStats = preload("res://scripts/managers/UnitTypeStats.gd")
 
 @export_dir var unit_stats_dir: String = "res://data/unit_types"
 @export var fallback_unit_stat_paths: Array[String] = [
