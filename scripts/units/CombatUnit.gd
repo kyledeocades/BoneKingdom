@@ -1,4 +1,4 @@
-extends "res://scripts/units/Unit.gd"
+extends BaseUnit
 ## Combat unit that attacks enemy units and bases
 
 class_name CombatUnit

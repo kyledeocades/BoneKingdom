@@ -1,4 +1,4 @@
-extends "res://scripts/units/Unit.gd"
+extends BaseUnit
 ## Worker unit that gathers bones from the bone pile
 
 class_name WorkerUnit

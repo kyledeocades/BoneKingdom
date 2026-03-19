@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+# The base/HQ (where units are spawned by either team)
+
+class_name Base
+
 signal health_changed(current: int, max: int)
 signal base_died(team: String)
 
