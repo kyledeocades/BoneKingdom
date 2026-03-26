@@ -62,6 +62,31 @@ func apply_unit_stats(unit: Node, stats, team: String) -> void:
 	unit.gather_cooldown = stats.gather_cooldown
 	unit.update_label()
 
+	# Modular sprite assignment
+	var visual_node = unit.get_node_or_null("Visual")
+	if visual_node:
+		var sprite_path = ""
+		if stats.has("sprite_resource"):
+			sprite_path = stats.sprite_resource
+		if sprite_path != null and sprite_path != "":
+			var tex = load(sprite_path)
+			if tex and tex is Texture2D:
+				# Replace Polygon2D with Sprite2D for modular sprite
+				var parent = visual_node.get_parent()
+				var idx = visual_node.get_index()
+				visual_node.queue_free()
+				var sprite = Sprite2D.new()
+				sprite.texture = tex
+				sprite.name = "Visual"
+				parent.add_child(sprite)
+				parent.move_child(sprite, idx)
+			else:
+				# Fallback: keep default Polygon2D (colored square)
+				pass
+		else:
+			# No sprite_resource: keep default Polygon2D (colored square)
+			pass
+
 ## Spawn for player
 func spawn_player_unit(unit_id: String) -> Node:
 	return spawn_unit(unit_id, "player", _player_spawn_pos)

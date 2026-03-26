@@ -1,5 +1,5 @@
 extends Resource
-class_name UnitTypeStats
+class_name UnitStats
 
 @export var unit_id: String = ""
 @export var player_name: String = ""
@@ -17,3 +17,6 @@ class_name UnitTypeStats
 @export var sort_order: int = 0
 @export var player_spawn_enabled: bool = true
 @export var enemy_ai_enabled: bool = true
+
+# Optional: path to a sprite resource (Texture2D or SpriteFrames)
+@export var sprite_resource: String = ""

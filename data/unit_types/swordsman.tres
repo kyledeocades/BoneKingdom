@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitTypeStats" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scripts/managers/UnitTypeStats.gd" id="1_hy5de"]
 
@@ -19,3 +19,4 @@ gather_cooldown = 2.0
 sort_order = 20
 player_spawn_enabled = true
 enemy_ai_enabled = true
+sprite_resource = "res://data/sprites/swordsman_sprite.tres" # Optional: path to sprite resource

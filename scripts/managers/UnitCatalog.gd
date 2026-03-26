@@ -46,7 +46,7 @@ func reload_catalog():
 
 func try_add_stats(path: String):
 	var stats = load(path)
-	if stats is UnitTypeStats and not stats.unit_id.is_empty():
+	if stats is UnitStats and not stats.unit_id.is_empty():
 		if _stats_by_id.has(stats.unit_id):
 			push_warning("Duplicate unit id in catalog: %s" % stats.unit_id)
 		else:
