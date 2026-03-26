@@ -36,7 +36,7 @@ Current prototype features:
 
 ---
 
-## How to Run the Game
+## How to Test Run the Game
 
 1. Open the project in Godot
 2. Make sure the main scene is set correctly
@@ -45,5 +45,4 @@ Current prototype features:
 If the main scene is not set:
 - Go to **Project > Project Settings > Application > Run**
 - Set the main scene to:
-res://scenes/main.tscn
-
+res://scenes/Main.tscn

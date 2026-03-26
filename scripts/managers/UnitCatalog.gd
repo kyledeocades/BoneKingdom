@@ -1,4 +1,5 @@
 extends Node
+class_name UnitCatalog
 
 @export_dir var unit_stats_dir: String = "res://data/unit_types"
 @export var fallback_unit_stat_paths: Array[String] = [
@@ -9,9 +10,10 @@ extends Node
 ]
 
 var _stats_by_id: Dictionary = {}
-var _all_stats: Array[UnitTypeStats] = []
+var _all_stats: Array = []
 
 func _ready():
+	add_to_group("unit_catalog")
 	reload_catalog()
 
 func reload_catalog():
@@ -38,7 +40,7 @@ func reload_catalog():
 	if _all_stats.is_empty():
 		push_warning("No unit stats could be loaded. Check UnitCatalog paths.")
 
-	_all_stats.sort_custom(func(a: UnitTypeStats, b: UnitTypeStats):
+	_all_stats.sort_custom(func(a, b):
 		return a.sort_order < b.sort_order
 	)
 
@@ -51,18 +53,18 @@ func try_add_stats(path: String):
 			_stats_by_id[stats.unit_id] = stats
 			_all_stats.append(stats)
 
-func get_stats(unit_id: String) -> UnitTypeStats:
+func get_stats(unit_id: String):
 	return _stats_by_id.get(unit_id)
 
-func get_player_spawn_units() -> Array[UnitTypeStats]:
-	var units: Array[UnitTypeStats] = []
+func get_player_spawn_units() -> Array:
+	var units: Array = []
 	for stats in _all_stats:
 		if stats.player_spawn_enabled:
 			units.append(stats)
 	return units
 
-func get_enemy_ai_units() -> Array[UnitTypeStats]:
-	var units: Array[UnitTypeStats] = []
+func get_enemy_ai_units() -> Array:
+	var units: Array = []
 	for stats in _all_stats:
 		if stats.enemy_ai_enabled:
 			units.append(stats)

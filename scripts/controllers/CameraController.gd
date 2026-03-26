@@ -1,5 +1,7 @@
 extends Node
 
+class_name CameraController
+
 @export var camera_path: NodePath
 @export var left_anchor_path: NodePath
 @export var right_anchor_path: NodePath
