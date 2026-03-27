@@ -19,4 +19,4 @@ gather_cooldown = 2.0
 sort_order = 20
 player_spawn_enabled = true
 enemy_ai_enabled = true
-sprite_resource = "res://data/sprites/swordsman_sprite.tres" # Optional: path to sprite resource
+# sprite_resource = "res://data/sprites/swordsman_sprite.tres" # Optional: path to sprite resource

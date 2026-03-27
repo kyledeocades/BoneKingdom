@@ -66,9 +66,9 @@ func apply_unit_stats(unit: Node, stats, team: String) -> void:
 	var visual_node = unit.get_node_or_null("Visual")
 	if visual_node:
 		var sprite_path = ""
-		if stats.has("sprite_resource"):
+		if "sprite_resource" in stats and stats.sprite_resource != null and stats.sprite_resource != "":
 			sprite_path = stats.sprite_resource
-		if sprite_path != null and sprite_path != "":
+		if sprite_path != "":
 			var tex = load(sprite_path)
 			if tex and tex is Texture2D:
 				# Replace Polygon2D with Sprite2D for modular sprite
