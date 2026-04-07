@@ -6,6 +6,9 @@ class_name CombatUnit
 var _combat_system: Node
 var _unit_manager: Node
 var _event_bus: Node
+var rng = RandomNumberGenerator.new()
+
+@onready var animated_sprite = $AnimatedSprite2D
 
 func _ready():
 	super._ready()
@@ -14,6 +17,7 @@ func _ready():
 	_combat_system = get_tree().get_first_node_in_group("combat_system")
 	_unit_manager = get_tree().get_first_node_in_group("unit_manager")
 	_event_bus = get_tree().get_first_node_in_group("game_event_bus")
+	animated_sprite.play("Idle")
 
 func process_unit(delta: float) -> void:
 	if _combat_system == null or _unit_manager == null:
@@ -33,12 +37,20 @@ func process_unit(delta: float) -> void:
 	if dist > attack_range:
 		var direction = (target.global_position - global_position).normalized()
 		velocity = direction * move_speed
+		
+		# Change sprite to match direction
+		if direction.x != 0:
+			animated_sprite.flip_h = direction.x < 0
+			
+		animated_sprite.play("Walk")
 		move_and_slide()
 	# Attack
 	else:
 		velocity = Vector2.ZERO
 		if attack_timer <= 0:
 			_combat_system.execute_attack(self, target)
+			var attack_anim = "Attack" + str(rng.randi_range(1,3))
+			animated_sprite.play(attack_anim)
 			attack_timer = attack_cooldown
 
 ## Find nearest enemy or their base
