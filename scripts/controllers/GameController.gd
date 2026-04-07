@@ -80,6 +80,41 @@ func _on_unit_died(_unit: Node, _team: String) -> void:
 	# Unit is removed from manager by UnitManager
 	pass
 
+## Mine interactions
+## Upgrade the player mine by one tier. Cost scales with current tier.
+func upgrade_player_mine() -> void:
+	var mine = get_node_or_null("PlayerMine")
+	if mine == null:
+		return
+	if mine.current_tier >= mine.max_tier:
+		print("Mine already at max tier!")
+		return
+	var upgrade_cost: int = 100 * mine.current_tier
+	if _game_state.try_spend_bones(upgrade_cost):
+		mine.upgrade()
+		print("Mine upgraded to tier ", mine.current_tier, " (cost ", upgrade_cost, " bones)")
+	else:
+		print("Not enough bones to upgrade mine! Need ", upgrade_cost)
+ 
+## Repair the player mine back to full HP and clear depleted state.
+func repair_player_mine() -> void:
+	var mine = get_node_or_null("PlayerMine")
+	if mine == null:
+		return
+	var repair_cost: int = 50
+	if _game_state.try_spend_bones(repair_cost):
+		mine.repair()
+		print("Mine repaired!")
+	else:
+		print("Not enough bones to repair mine! Need ", repair_cost)
+ 
+## Button callbacks for mine UI buttons
+func _on_upgrade_mine_button_pressed() -> void:
+	upgrade_player_mine()
+ 
+func _on_repair_mine_button_pressed() -> void:
+	repair_player_mine()
+
 ## Enemy AI spawn logic
 func start_enemy_spawn_loop() -> void:
 	_enemy_spawn_timer = Timer.new()
