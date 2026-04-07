@@ -1,17 +1,18 @@
 [gd_scene format=3 uid="uid://cgtvp7i81hsmc"]
 
-[ext_resource type="Script" path="res://scripts/controllers/GameController.gd" id="1_game_controller"]
+[ext_resource type="Script" uid="uid://b66j7np18x754" path="res://scripts/controllers/GameController.gd" id="1_game_controller"]
 [ext_resource type="Texture2D" uid="uid://joxfmh3kmhb1" path="res://bg2d.jpg" id="2_rarhs"]
 [ext_resource type="Script" uid="uid://b88gn33jpbcjm" path="res://scripts/units/Base.gd" id="3_vcsgt"]
-[ext_resource type="Script" path="res://scripts/services/GameState.gd" id="4_xh4fi"]
-[ext_resource type="Script" path="res://scripts/controllers/CameraController.gd" id="5_7hdb4"]
-[ext_resource type="Script" path="res://scripts/managers/UnitCatalog.gd" id="6_0v5jc"]
-[ext_resource type="Script" path="res://scripts/services/GameEventBus.gd" id="7_event_bus"]
-[ext_resource type="Script" path="res://scripts/managers/SpawnManager.gd" id="8_spawn_mgr"]
-[ext_resource type="Script" path="res://scripts/managers/UnitManager.gd" id="9_unit_mgr"]
-[ext_resource type="Script" path="res://scripts/systems/CombatSystem.gd" id="10_combat_sys"]
-[ext_resource type="Script" path="res://scripts/systems/WorkerSystem.gd" id="11_worker_sys"]
-[ext_resource type="Script" path="res://scripts/ui/UIController.gd" id="12_ui_ctrl"]
+[ext_resource type="Script" uid="uid://erggx2yhxv1t" path="res://scripts/services/GameState.gd" id="4_xh4fi"]
+[ext_resource type="Script" uid="uid://vvsiy1leqbai" path="res://scripts/controllers/CameraController.gd" id="5_7hdb4"]
+[ext_resource type="Script" uid="uid://b2qspit7nuwyt" path="res://scripts/managers/UnitCatalog.gd" id="6_0v5jc"]
+[ext_resource type="Script" uid="uid://dqyhbdp6udn0o" path="res://scripts/services/GameEventBus.gd" id="7_event_bus"]
+[ext_resource type="Script" uid="uid://d27ya8nyyf05o" path="res://scripts/managers/SpawnManager.gd" id="8_spawn_mgr"]
+[ext_resource type="Script" uid="uid://5pnen0wi2ipb" path="res://scripts/managers/UnitManager.gd" id="9_unit_mgr"]
+[ext_resource type="Script" uid="uid://u7yp5ybf1p0n" path="res://scripts/systems/CombatSystem.gd" id="10_combat_sys"]
+[ext_resource type="Script" uid="uid://nh8tvo6fo1yc" path="res://scripts/systems/WorkerSystem.gd" id="11_worker_sys"]
+[ext_resource type="Script" uid="uid://cja0lb1ct8j2m" path="res://scripts/ui/UIController.gd" id="12_ui_ctrl"]
+[ext_resource type="Texture2D" uid="uid://dcslhhqg154wx" path="res://sprites/sprite2.png" id="13_qmy6f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(100, 300)
@@ -85,9 +86,10 @@ offset_right = 45.0
 offset_bottom = 72.0
 text = "Player Base"
 
-[node name="Visual" type="Polygon2D" parent="PlayerBase" unique_id=1036655741]
-color = Color(1, 1, 0.29803923, 1)
-polygon = PackedVector2Array(-50, -252, -50, 43, 49, 43, 49, -253)
+[node name="Sprite2D" type="Sprite2D" parent="PlayerBase" unique_id=1969059614]
+position = Vector2(3, -117)
+scale = Vector2(3, 3)
+texture = ExtResource("13_qmy6f")
 
 [node name="EnemyBase" type="CharacterBody2D" parent="." unique_id=1945911551]
 position = Vector2(1160, 500)
@@ -106,9 +108,10 @@ offset_right = 45.0
 offset_bottom = 72.0
 text = "Enemy Base"
 
-[node name="Visual" type="Polygon2D" parent="EnemyBase" unique_id=1767693342]
-color = Color(0.6776327, 0.14661857, 0.15425587, 1)
-polygon = PackedVector2Array(-49, -253, -49, 41, 51, 41, 51, -255)
+[node name="Sprite2D" type="Sprite2D" parent="EnemyBase" unique_id=489821892]
+position = Vector2(4, -116)
+scale = Vector2(3, 3)
+texture = ExtResource("13_qmy6f")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1727116174]
 
