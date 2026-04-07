@@ -4,7 +4,8 @@ extends Node
 
 class_name WorkerSystem
 
-var _bone_pile: Node
+var _player_mine: Node
+var _enemy_mine: Node
 var _player_base: Node
 var _enemy_base: Node
 var _event_bus: GameEventBus
@@ -15,7 +16,8 @@ func _ready():
 	
 	var main = get_tree().get_first_node_in_group("main")
 	if main:
-		_bone_pile = main.get_node_or_null("BonePile")
+		_player_mine = main.get_node_or_null("PlayerMine")
+		_enemy_mine = main.get_node_or_null("EnemyMine")
 		_player_base = main.get_node_or_null("PlayerBase")
 		_enemy_base = main.get_node_or_null("EnemyBase")
 
@@ -26,19 +28,22 @@ func process_worker(worker: Node, delta: float) -> void:
 	
 	worker.gather_timer -= delta
 	
-	var target = _bone_pile
+	var mine = _player_mine if worker.team == "player" else _enemy_mine
 	var base = _player_base if worker.team == "player" else _enemy_base
 	
-	if base == null or target == null:
+	if base == null or mine == null:
 		return
 	
-	# Move to bone pile if not carrying
+	# Move to mine if not carrying
 	if not worker.carrying_bones:
-		move_worker_toward(worker, target.global_position)
+		move_worker_toward(worker, mine.global_position)
 		if worker.global_position.distance_to(target.global_position) < 20:
-			if worker.gather_timer <= 0:
-				worker.carrying_bones = true
-				worker.gather_timer = worker.gather_cooldown
+			if worker.gather_timer <= 0 and mine.has_bones():
+				var taken: int = mine.take_bones(worker.gather_rate)
+				worker.carrying_bones = taken > 0
+				if worker.carrying_bones:
+					worker.gather_timer = worker.gather_cooldown
+
 	# Move to base if carrying
 	else:
 		move_worker_toward(worker, base.global_position)
