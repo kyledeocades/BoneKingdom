@@ -37,7 +37,7 @@ func process_worker(worker: Node, delta: float) -> void:
 	# Move to mine if not carrying
 	if not worker.carrying_bones:
 		move_worker_toward(worker, mine.global_position)
-		if worker.global_position.distance_to(target.global_position) < 20:
+		if worker.global_position.distance_to(mine.global_position) < 20:
 			if worker.gather_timer <= 0 and mine.has_bones():
 				var taken: int = mine.take_bones(worker.gather_rate)
 				worker.carrying_bones = taken > 0

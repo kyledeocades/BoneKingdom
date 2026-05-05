@@ -39,7 +39,6 @@ func _ready():
 	_ui_controller.build_spawn_buttons(_on_player_spawn_button_pressed)
 	
 	# Subscribe to events
-	_event_bus.bones_earned.connect(_on_bones_earned)
 	_event_bus.unit_died.connect(_on_unit_died)
 	
 	# Start enemy AI
@@ -67,13 +66,6 @@ func _on_player_spawn_button_pressed(unit_id: String) -> void:
 		return
 	
 	_spawn_manager.spawn_player_unit(unit_id)
-
-## Handle bone earning for enemies and players
-func _on_bones_earned(amount: int, team: String) -> void:
-	if team == "player":
-		_game_state.add_bones(amount)
-	else:
-		_game_state.add_enemy_bones(amount)
 
 ## Handle unit death for tracking
 func _on_unit_died(_unit: Node, _team: String) -> void:
