@@ -12,8 +12,10 @@
 [ext_resource type="Script" uid="uid://u7yp5ybf1p0n" path="res://scripts/systems/CombatSystem.gd" id="10_combat_sys"]
 [ext_resource type="Script" uid="uid://bfnedn5abyofv" path="res://scripts/units/Mine.gd" id="11_mwfav"]
 [ext_resource type="Script" uid="uid://nh8tvo6fo1yc" path="res://scripts/systems/WorkerSystem.gd" id="11_worker_sys"]
+[ext_resource type="Texture2D" uid="uid://cphsd38py082g" path="res://sprites/Bone_Pile/bone_pile.png" id="12_3p2gp"]
 [ext_resource type="Script" uid="uid://cja0lb1ct8j2m" path="res://scripts/ui/UIController.gd" id="12_ui_ctrl"]
 [ext_resource type="Texture2D" uid="uid://dcslhhqg154wx" path="res://sprites/sprite2.png" id="13_qmy6f"]
+[ext_resource type="Texture2D" uid="uid://bfw1d5kil55hr" path="res://sprites/Towers/enemy_tower.png" id="16_cvmbd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(100, 300)
@@ -63,9 +65,19 @@ position = Vector2(1060, 500)
 position = Vector2(340, 500)
 script = ExtResource("11_mwfav")
 
+[node name="Sprite2D" type="Sprite2D" parent="PlayerMine" unique_id=797643273]
+position = Vector2(0, 35)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_3p2gp")
+
 [node name="EnemyMine" type="Marker2D" parent="." unique_id=1863805937]
 position = Vector2(946, 502)
 script = ExtResource("11_mwfav")
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyMine" unique_id=857260708]
+position = Vector2(0, 32)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_3p2gp")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=117046502]
 position = Vector2(640, 360)
@@ -116,8 +128,8 @@ text = "Enemy Base"
 
 [node name="Sprite2D" type="Sprite2D" parent="EnemyBase" unique_id=489821892]
 position = Vector2(4, -116)
-scale = Vector2(3, 3)
-texture = ExtResource("13_qmy6f")
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("16_cvmbd")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1727116174]
 
