@@ -1,21 +1,138 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://emvi6n35pp4v"]
 
-[ext_resource type="Script" path="res://scripts/units/WorkerUnit.gd" id="1_worker"]
+[ext_resource type="Script" uid="uid://dutsitgoj8iiq" path="res://scripts/units/WorkerUnit.gd" id="1_worker"]
+[ext_resource type="Texture2D" uid="uid://b2owth6umbgtq" path="res://sprites/Bone_Collector/Walk.png" id="2_g1f8q"]
+[ext_resource type="Texture2D" uid="uid://btgiwtmjkfdiv" path="res://sprites/Bone_Collector/Dead.png" id="2_r4oo0"]
+[ext_resource type="Texture2D" uid="uid://csc8pibdyrt58" path="res://sprites/Bone_Collector/Hurt.png" id="3_xy5mj"]
+[ext_resource type="Texture2D" uid="uid://4d80ks7v6etm" path="res://sprites/Bone_Collector/Idle.png" id="4_6d61i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6e3tn"]
 size = Vector2(40, 40)
 
-[node name="WorkerUnit" type="CharacterBody2D" groups=["units"]]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvw3b"]
+atlas = ExtResource("2_r4oo0")
+region = Rect2(0, 0, 317, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cp3rm"]
+atlas = ExtResource("2_r4oo0")
+region = Rect2(326, 0, 317, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjs5m"]
+atlas = ExtResource("2_r4oo0")
+region = Rect2(652, 0, 317, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nb7r"]
+atlas = ExtResource("2_r4oo0")
+region = Rect2(978, 0, 317, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pel5"]
+atlas = ExtResource("3_xy5mj")
+region = Rect2(0, 0, 319, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3to8u"]
+atlas = ExtResource("3_xy5mj")
+region = Rect2(319, 0, 319, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv2ii"]
+atlas = ExtResource("3_xy5mj")
+region = Rect2(638, 0, 319, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xy5mj"]
+atlas = ExtResource("2_g1f8q")
+region = Rect2(0, 0, 260, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6d61i"]
+atlas = ExtResource("2_g1f8q")
+region = Rect2(260, 0, 260, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_webyt"]
+atlas = ExtResource("2_g1f8q")
+region = Rect2(520, 0, 260, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i024e"]
+atlas = ExtResource("2_g1f8q")
+region = Rect2(780, 0, 260, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_beoms"]
+atlas = ExtResource("2_g1f8q")
+region = Rect2(1040, 0, 260, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0pj3p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvw3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cp3rm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjs5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nb7r")
+}],
+"loop": true,
+"name": &"Dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pel5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3to8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv2ii")
+}],
+"loop": true,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6d61i")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xy5mj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6d61i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_webyt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i024e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_beoms")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[node name="WorkerUnit" type="CharacterBody2D" unique_id=1426384240 groups=["units"]]
 script = ExtResource("1_worker")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2098164951]
 shape = SubResource("RectangleShape2D_6e3tn")
 
-[node name="Visual" type="Polygon2D" parent="."]
-color = Color(0.2784, 0.5588, 0.302, 1)
-polygon = PackedVector2Array(-20, -20, 20, -20, 20, 20, -20, 20)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1545629886]
+position = Vector2(0, 30)
+scale = Vector2(0.3, 0.3)
+skew = -0.013962634
+sprite_frames = SubResource("SpriteFrames_0pj3p")
+animation = &"Dead"
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1856155650]
 offset_left = -35.0
 offset_top = -45.0
 offset_right = 5.0
