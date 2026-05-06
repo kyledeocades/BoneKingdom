@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://d27ya8nyyf05o" path="res://scripts/managers/SpawnManager.gd" id="8_spawn_mgr"]
 [ext_resource type="Script" uid="uid://5pnen0wi2ipb" path="res://scripts/managers/UnitManager.gd" id="9_unit_mgr"]
 [ext_resource type="Script" uid="uid://u7yp5ybf1p0n" path="res://scripts/systems/CombatSystem.gd" id="10_combat_sys"]
+[ext_resource type="Script" uid="uid://bfnedn5abyofv" path="res://scripts/units/Mine.gd" id="11_mwfav"]
 [ext_resource type="Script" uid="uid://nh8tvo6fo1yc" path="res://scripts/systems/WorkerSystem.gd" id="11_worker_sys"]
 [ext_resource type="Script" uid="uid://cja0lb1ct8j2m" path="res://scripts/ui/UIController.gd" id="12_ui_ctrl"]
 [ext_resource type="Texture2D" uid="uid://dcslhhqg154wx" path="res://sprites/sprite2.png" id="13_qmy6f"]
@@ -58,8 +59,13 @@ position = Vector2(220, 500)
 [node name="EnemySpawn" type="Marker2D" parent="." unique_id=1761276997]
 position = Vector2(1060, 500)
 
-[node name="BonePile" type="Marker2D" parent="." unique_id=738414046]
+[node name="PlayerMine" type="Marker2D" parent="." unique_id=738414046]
 position = Vector2(340, 500)
+script = ExtResource("11_mwfav")
+
+[node name="EnemyMine" type="Marker2D" parent="." unique_id=1863805937]
+position = Vector2(946, 502)
+script = ExtResource("11_mwfav")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=117046502]
 position = Vector2(640, 360)

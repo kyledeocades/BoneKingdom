@@ -62,4 +62,3 @@ func update_label() -> void:
 func die() -> void:
 	died.emit(self)
 	queue_free()
-
