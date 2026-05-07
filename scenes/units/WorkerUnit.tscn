@@ -119,6 +119,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xy5mj"]
+bg_color = Color(0.26666668, 0.7764706, 0.21960784, 1)
+
 [node name="WorkerUnit" type="CharacterBody2D" unique_id=1426384240 groups=["units"]]
 script = ExtResource("1_worker")
 
@@ -139,3 +142,12 @@ offset_top = -45.0
 offset_right = 5.0
 offset_bottom = -22.0
 text = "Worker"
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=650074882]
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 22.0
+offset_bottom = -13.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_xy5mj")
+value = 100.0
+show_percentage = false

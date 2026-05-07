@@ -109,7 +109,7 @@ scale = Vector2(0.38, 0.38)
 texture = ExtResource("15_cvmbd")
 
 [node name="EnemyBase" type="CharacterBody2D" parent="." unique_id=1945911551]
-position = Vector2(1160, 500)
+position = Vector2(1140, 500)
 script = ExtResource("3_vcsgt")
 team = "enemy"
 
