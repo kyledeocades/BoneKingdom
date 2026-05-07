@@ -23,6 +23,7 @@ var _enemy_spawn_timer: Timer
 
 var _pause_menu: PauseMenu
 var _result_overlay: GameResultOverlay
+var _music: AudioStreamPlayer
 
 var _stage_config: StageConfig
 
@@ -32,11 +33,11 @@ var _unit_cooldowns: Dictionary = {}  # unit_id -> time remaining
 func _ready():
 	add_to_group("main")
 
-	var music = AudioStreamPlayer.new()
-	music.stream = preload("res://audio/dragon-studio-battle-music-316528.mp3")
-	add_child(music)
-	music.volume_db = -46.0
-	music.play()
+	_music = AudioStreamPlayer.new()
+	_music.stream = preload("res://audio/dragon-studio-battle-music-316528.mp3")
+	add_child(_music)
+	_music.volume_db = -22.0
+	_music.play()
 	
 	# Get all system references
 	_game_state = $GameState
