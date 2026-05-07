@@ -56,7 +56,7 @@ func process_unit(delta: float) -> void:
 			#Attack sound
 			var slash_sfx = AudioStreamPlayer.new()
 			slash_sfx.stream = preload("res://audio/442903__qubodup__slash.wav")
-			slash_sfx.volume_db = -60.0
+			slash_sfx.volume_db = -28.0
 			add_child(slash_sfx)
 			slash_sfx.play()
 
