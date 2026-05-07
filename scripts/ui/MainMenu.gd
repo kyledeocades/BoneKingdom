@@ -21,6 +21,12 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_build_ui()
 
+	var music = AudioStreamPlayer.new()
+	music.stream = preload("res://audio/mondamusic-retro-arcade-game-music-512837.mp3")
+	add_child(music)
+	music.volume_db = -46.0
+	music.play()
+
 func _build_ui() -> void:
 	# ── Deep background ──────────────────────────────────────────────────────
 	var bg := ColorRect.new()

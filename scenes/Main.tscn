@@ -116,6 +116,7 @@ shape = SubResource("RectangleShape2D_0wfyh")
 debug_color = Color(0.8786287, 0.79336745, 1.1551381e-06, 1)
 
 [node name="Label" type="Label" parent="PlayerBase" unique_id=683897676]
+visible = false
 offset_left = -45.0
 offset_top = 49.0
 offset_right = 45.0
@@ -126,6 +127,15 @@ text = "Player Base"
 position = Vector2(3, -135)
 scale = Vector2(0.38, 0.38)
 texture = ExtResource("15_cvmbd")
+
+[node name="HealthBar" type="ProgressBar" parent="PlayerBase" unique_id=590185979]
+offset_left = -70.0
+offset_top = 70.0
+offset_right = 50.0
+offset_bottom = 78.0
+max_value = 500.0
+value = 500.0
+show_percentage = false
 
 [node name="EnemyBase" type="CharacterBody2D" parent="." unique_id=1945911551]
 position = Vector2(1140, 500)
@@ -138,6 +148,7 @@ shape = SubResource("RectangleShape2D_0wfyh")
 debug_color = Color(0.67849773, 0.14925322, 0.12010615, 1)
 
 [node name="Label" type="Label" parent="EnemyBase" unique_id=976460746]
+visible = false
 offset_left = -45.0
 offset_top = 49.0
 offset_right = 45.0
@@ -148,6 +159,15 @@ text = "Enemy Base"
 position = Vector2(4, -126)
 scale = Vector2(0.38, 0.38)
 texture = ExtResource("16_cvmbd")
+
+[node name="HealthBar" type="ProgressBar" parent="EnemyBase" unique_id=2115770441]
+offset_left = -25.0
+offset_top = 70.0
+offset_right = 95.0
+offset_bottom = 78.0
+max_value = 500.0
+value = 500.0
+show_percentage = false
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1727116174]
 
