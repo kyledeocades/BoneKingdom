@@ -10,10 +10,10 @@ class_name StageConfig
 
 # ── Spatial Layout ──────────────────────────────────────────────────────────
 ## Distance from center (0,0) to each base (player at -X, enemy at +X)
-@export var base_distance: float = 1200.0
+@export var base_distance: float = 1600.0
 
 ## Distance from base to its respective mine (closer to center, subtracted from base_distance)
-@export var mine_distance: float = 300.0
+@export var mine_distance: float = 400.0
 
 # ── Unit Allowlists ────────────────────────────────────────────────────────
 ## Empty array = allow all units

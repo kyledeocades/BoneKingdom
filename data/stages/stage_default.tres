@@ -1,15 +1,25 @@
 [gd_resource type="Resource" script_class="StageConfig" load_steps=2 format=3 uid="uid://dy3xqpq5j1msrw"]
 
-[ext_resource type="Script" path="res://scripts/managers/StageConfig.gd" id="1_stage_config"]
+[ext_resource type="Script" uid="uid://dtevsh6rqd6ml" path="res://scripts/managers/StageConfig.gd" id="1_stage_config"]
 
 [resource]
 script = ExtResource("1_stage_config")
 stage_id = "default"
 stage_name = "Default Stage"
-base_distance = 2000.0 # Distance from CENTER to place BASES
-mine_distance = 400.0 # Distance FROM BASES toward CENTER to place MINES
-allowed_player_units = [] # List of unit IDs that the player can use in this stage. If empty, all units are allowed.
-allowed_enemy_units = [] # List of unit IDs that can spawn as enemies in this stage. If empty, all units are allowed.
-starting_resources = 500 # Initial bones both player and enemy start with
-resource_rate = 1.0 # My multiplier on resource gathering rate, i.e. gather_rate of workers
+base_distance = 2000.0
+mine_distance = 400.0
+allowed_player_units = []
+allowed_enemy_units = []
+starting_resources = 500
+resource_rate = 1.0
 background_path = "res://data/backgrounds/bg_underworld.png"
+
+
+### base_distance is distance from center to each base, so total distance between bases is 2x this
+##### i.e.e base_distance is distance from base to center
+### mine_distance is distance from base to mine, 
+##### i.e. base_distance - mine_distance is distance from the mine to center
+### allowed_player_units are the amount of units the player can spawn, empty array means no restrictions
+### allowed_enemy_units are the units that can spawn for the enemy, empty array means no restrictions
+### starting_resources is the amount of resources the player starts with at the beginning of the stage
+### resource_rate is the multiplier for how fast resources are generated at the mine, so 2.0 is 2x rate
