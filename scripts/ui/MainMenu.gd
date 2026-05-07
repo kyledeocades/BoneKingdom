@@ -114,21 +114,21 @@ func _build_ui() -> void:
 	_add_spacer(vbox, 64)
 
 	# ── PLAY button ───────────────────────────────────────────────────────────
-	var play_btn := _make_button("⚔   PLAY", C_CRIMSON, C_BONE, true)
+	var play_btn := _make_button("PLAY", C_CRIMSON, C_BONE, true)
 	play_btn.pressed.connect(_on_play_pressed)
 	vbox.add_child(play_btn)
 
 	_add_spacer(vbox, 16)
 
 	# ── SETTINGS button ───────────────────────────────────────────────────────
-	var settings_btn := _make_button("⚙   SETTINGS", C_PANEL, C_ASH, false)
+	var settings_btn := _make_button("SETTINGS", C_PANEL, C_ASH, false)
 	settings_btn.pressed.connect(_on_settings_pressed)
 	vbox.add_child(settings_btn)
 
 	_add_spacer(vbox, 16)
 
 	# ── QUIT button ───────────────────────────────────────────────────────────
-	var quit_btn := _make_button("✕   QUIT", C_PANEL, C_ASH, false)
+	var quit_btn := _make_button("QUIT", C_PANEL, C_ASH, false)
 	quit_btn.pressed.connect(_on_quit_pressed)
 	vbox.add_child(quit_btn)
 

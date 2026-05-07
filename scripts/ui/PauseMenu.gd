@@ -119,35 +119,35 @@ func _build_ui() -> void:
 
 	_add_spacer(vbox, SPACER_DIVIDER_BOTTOM)
 
-	var resume_btn := _make_button("▶   RESUME", C_CRIMSON, C_BONE)
+	var resume_btn := _make_button("RESUME", C_CRIMSON, C_BONE)
 	resume_btn.pressed.connect(_on_resume_pressed)
 	_buttons.append(resume_btn)
 	vbox.add_child(resume_btn)
 
 	_add_spacer(vbox, SPACER_BUTTON_GAP)
 
-	var restart_btn := _make_button("↻   RESTART", C_PANEL, C_ASH)
+	var restart_btn := _make_button("RESTART", C_PANEL, C_ASH)
 	restart_btn.pressed.connect(_on_restart_pressed)
 	_buttons.append(restart_btn)
 	vbox.add_child(restart_btn)
 
 	_add_spacer(vbox, SPACER_BUTTON_GAP)
 
-	var settings_btn := _make_button("⚙   SETTINGS", C_PANEL, C_ASH)
+	var settings_btn := _make_button("SETTINGS", C_PANEL, C_ASH)
 	settings_btn.pressed.connect(_on_settings_pressed)
 	_buttons.append(settings_btn)
 	vbox.add_child(settings_btn)
 
 	_add_spacer(vbox, SPACER_BUTTON_GAP)
 
-	var menu_btn := _make_button("⌂   MAIN MENU", C_PANEL, C_ASH)
+	var menu_btn := _make_button("MAIN MENU", C_PANEL, C_ASH)
 	menu_btn.pressed.connect(_on_main_menu_pressed)
 	_buttons.append(menu_btn)
 	vbox.add_child(menu_btn)
 
 	_add_spacer(vbox, SPACER_BUTTON_GAP)
 
-	var quit_btn := _make_button("✕   QUIT GAME", C_PANEL, C_ASH)
+	var quit_btn := _make_button("QUIT GAME", C_PANEL, C_ASH)
 	quit_btn.pressed.connect(_on_quit_pressed)
 	_buttons.append(quit_btn)
 	vbox.add_child(quit_btn)
