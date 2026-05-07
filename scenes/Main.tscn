@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://cja0lb1ct8j2m" path="res://scripts/ui/UIController.gd" id="12_ui_ctrl"]
 [ext_resource type="Texture2D" uid="uid://clgurd5ic18v7" path="res://sprites/Towers/player_tower.png" id="15_cvmbd"]
 [ext_resource type="Texture2D" uid="uid://bfw1d5kil55hr" path="res://sprites/Towers/enemy_tower.png" id="16_cvmbd"]
+[ext_resource type="Script" uid="uid://dg0s4yvjl90s" path="res://scripts/systems/BackgroundScroller.gd" id="17_bg_scroller"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(100, 300)
@@ -49,10 +50,11 @@ script = ExtResource("12_ui_ctrl")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1213784102]
 texture_repeat = 3
-position = Vector2(640, 360)
+position = Vector2(0, 0)
 scale = Vector2(0.81, 0.81)
 texture = ExtResource("10_cvmbd")
 region_rect = Rect2(0, 0, 4000, 720)
+script = ExtResource("17_bg_scroller")
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=935618741]
 position = Vector2(220, 500)
