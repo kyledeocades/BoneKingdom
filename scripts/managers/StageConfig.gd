@@ -7,6 +7,7 @@ class_name StageConfig
 # ── Stage Identity ──────────────────────────────────────────────────────────
 @export var stage_id: String = "stage_default"
 @export var stage_name: String = "Default Stage"
+@export var is_available: bool = true  # Whether this stage appears in the stage select menu
 
 # ── Spatial Layout ──────────────────────────────────────────────────────────
 ## Distance from center (0,0) to each base (player at -X, enemy at +X)

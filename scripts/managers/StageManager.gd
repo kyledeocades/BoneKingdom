@@ -229,9 +229,22 @@ func list_available_stages() -> Array[String]:
 	dir.list_dir_begin()
 	var file_name = dir.get_next()
 	while file_name != "":
-		if file_name.starts_with("stage_") and file_name.ends_with(".tres"):
+		if file_name.begins_with("stage_") and file_name.ends_with(".tres"):
 			var stage_id = file_name.trim_suffix(".tres").trim_prefix("stage_")
 			stages.append(stage_id)
 		file_name = dir.get_next()
 	
 	return stages
+
+
+## Get all available stage configs that have is_available = true
+func get_available_stage_configs() -> Array[StageConfig]:
+	var available_configs: Array[StageConfig] = []
+	var stage_ids = list_available_stages()
+	
+	for stage_id in stage_ids:
+		var stage = load_stage(stage_id)
+		if stage != null and stage.is_available:
+			available_configs.append(stage)
+	
+	return available_configs

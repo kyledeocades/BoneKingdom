@@ -168,7 +168,12 @@ func _draw_camera_indicator(bar_rect: Rect2) -> void:
 
 func _world_to_bar(world_x: float, bar_rect: Rect2) -> float:
 	# Map world coordinates to bar coordinates (no clamping - let it overflow naturally)
-	var normalized = (world_x - map_min_x) / map_range if map_range != 0 else 0
+	var normalized
+	if map_range != 0:
+		normalized = (world_x - map_min_x) / map_range
+	else: 
+		normalized = 0
+	
 	return bar_rect.position.x + normalized * bar_rect.size.x
 
 ## Update scrollbar bounds based on stage configuration

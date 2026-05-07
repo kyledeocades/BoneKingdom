@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StageConfig" load_steps=2 format=3 uid="uid://cno5yw71x7kqa"]
+[gd_resource type="Resource" script_class="StageConfig" format=3 uid="uid://cno5yw71x7kqa"]
 
 [ext_resource type="Script" uid="uid://dtevsh6rqd6ml" path="res://scripts/managers/StageConfig.gd" id="1_stage_config"]
 
@@ -6,6 +6,7 @@
 script = ExtResource("1_stage_config")
 stage_id = "plains"
 stage_name = "Plains Stage"
+is_available = true
 base_distance = 1800.0
 mine_distance = 350.0
 allowed_player_units = []

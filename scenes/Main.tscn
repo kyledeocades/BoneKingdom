@@ -69,7 +69,8 @@ script = ExtResource("18_battle_scrollbar")
 texture_repeat = 3
 scale = Vector2(0.81, 0.81)
 texture = ExtResource("10_cvmbd")
-region_rect = Rect2(0, 0, 4000, 720)
+region_enabled = true
+region_rect = Rect2(-836, 0, 3344, 941)
 script = ExtResource("17_bg_scroller")
 
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=935618741]

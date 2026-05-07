@@ -6,6 +6,7 @@
 script = ExtResource("1_stage_config")
 stage_id = "default"
 stage_name = "Default Stage"
+is_available = true
 base_distance = 2000.0
 mine_distance = 400.0
 allowed_player_units = []

@@ -9,6 +9,9 @@ class_name GameController
 const PauseMenuScript    = preload("res://scripts/ui/PauseMenu.gd")
 const ResultOverlayScript = preload("res://scripts/ui/GameResultOverlay.gd")
 
+# ── Stage selection (set by StageSelectScreen before changing scene) ──────────
+static var selected_stage_id: String = "default"
+
 var _game_state: Node
 var _event_bus: Node
 var _spawn_manager: Node
@@ -53,9 +56,9 @@ func _ready():
 	# Wait for all child systems to initialize
 	await get_tree().process_frame
 	
-	# Load and apply default stage (can be overridden before _ready)
-	if not _stage_manager.load_and_apply_stage("default"):
-		push_error("Failed to load default stage")
+	# Load and apply selected stage (default or user-selected)
+	if not _stage_manager.load_and_apply_stage(selected_stage_id):
+		push_error("Failed to load stage: %s" % selected_stage_id)
 	
 	_stage_config = _stage_manager.get_current_stage()
 	assert(_stage_config != null, "Stage config not loaded")
