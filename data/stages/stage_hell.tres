@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="StageConfig" load_steps=2 format=3 uid="uid://dy3xqpq5j1msrw"]
+
+[ext_resource type="Script" uid="uid://dtevsh6rqd6ml" path="res://scripts/managers/StageConfig.gd" id="1_stage_config"]
+
+[resource]
+script = ExtResource("1_stage_config")
+stage_id = "hell"
+stage_name = "Hell"
+is_available = true
+base_distance = 1337.0
+mine_distance = 300.0
+allowed_player_units = []
+allowed_enemy_units = []
+starting_player_resources = 1500
+starting_enemy_resources = 2500
+player_resource_rate = 4.0
+enemy_resource_rate = 4.0
+enemy_ai_mode = "aggressive"
+background_path = "res://data/backgrounds/bg_underworld.png"
+
+
+### base_distance is distance from center to each base, so total distance between bases is 2x this
+##### i.e.e base_distance is distance from base to center
+### mine_distance is distance from base to mine, 
+##### i.e. base_distance - mine_distance is distance from the mine to center
+### allowed_player_units are the amount of units the player can spawn, empty array means no restrictions
+### allowed_enemy_units are the units that can spawn for the enemy, empty array means no restrictions
+### starting_player_resources is the amount of resources the player starts with at the beginning of the stage
+### starting_enemy_resources is the amount of resources the enemy starts with at the beginning of the stage
+### player_resource_rate is the multiplier for how fast player resources are generated at the mine (2.0 is 2x rate)
+### enemy_resource_rate is the multiplier for how fast enemy resources are generated at the mine
+### enemy_ai_mode is the AI behavior: "random" or "smart"
