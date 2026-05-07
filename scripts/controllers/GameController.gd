@@ -84,7 +84,15 @@ func _setup_overlays() -> void:
 	add_child(_result_overlay)
 
 ## ESC key toggles pause menu (but not once game is over)
+## Ctrl+Shift+B adds 500 bones (debug cheat)
 func _unhandled_input(event: InputEvent) -> void:
+	# Debug: Ctrl+Shift+B adds 500 bones
+	if event is InputEventKey and event.pressed and event.ctrl_pressed and event.shift_pressed and event.keycode == KEY_B:
+		_game_state.add_bones(500)
+		print("Debug: Added 500 bones! Total: ", _game_state.bones)
+		get_tree().root.set_input_as_handled()
+		return
+	
 	if not event.is_action_pressed("ui_cancel"):
 		return
 	if _game_state.game_over:
