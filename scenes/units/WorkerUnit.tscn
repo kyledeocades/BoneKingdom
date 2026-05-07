@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://emvi6n35pp4v"]
 
 [ext_resource type="Script" uid="uid://dutsitgoj8iiq" path="res://scripts/units/WorkerUnit.gd" id="1_worker"]
-[ext_resource type="Texture2D" uid="uid://b2owth6umbgtq" path="res://sprites/Bone_Collector/Walk.png" id="2_g1f8q"]
-[ext_resource type="Texture2D" uid="uid://btgiwtmjkfdiv" path="res://sprites/Bone_Collector/Dead.png" id="2_r4oo0"]
-[ext_resource type="Texture2D" uid="uid://csc8pibdyrt58" path="res://sprites/Bone_Collector/Hurt.png" id="3_xy5mj"]
-[ext_resource type="Texture2D" uid="uid://4d80ks7v6etm" path="res://sprites/Bone_Collector/Idle.png" id="4_6d61i"]
+[ext_resource type="Texture2D" uid="uid://b2owth6umbgtq" path="res://data/sprites/collector/Walk.png" id="2_g1f8q"]
+[ext_resource type="Texture2D" uid="uid://btgiwtmjkfdiv" path="res://data/sprites/collector/Dead.png" id="2_r4oo0"]
+[ext_resource type="Texture2D" uid="uid://csc8pibdyrt58" path="res://data/sprites/collector/Hurt.png" id="3_xy5mj"]
+[ext_resource type="Texture2D" uid="uid://4d80ks7v6etm" path="res://data/sprites/collector/Idle.png" id="4_6d61i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6e3tn"]
 size = Vector2(40, 40)

@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://c04xdtsblvmbb"]
 
 [ext_resource type="Script" uid="uid://dkl6u04op82ib" path="res://scripts/units/CombatUnit.gd" id="1_combat"]
-[ext_resource type="Texture2D" uid="uid://bt111daxmg08m" path="res://sprites/Skeleton_Warrior/Walk.png" id="2_u8erv"]
-[ext_resource type="Texture2D" uid="uid://dta41c2k5g7g4" path="res://sprites/Skeleton_Warrior/Attack_1.png" id="2_y2pvs"]
-[ext_resource type="Texture2D" uid="uid://bxn1mlmrgxs64" path="res://sprites/Skeleton_Warrior/Attack_2.png" id="3_memfn"]
-[ext_resource type="Texture2D" uid="uid://3ty58m2d23cf" path="res://sprites/Skeleton_Warrior/Attack_3.png" id="4_v4wxr"]
-[ext_resource type="Texture2D" uid="uid://1ymgs2wgm7mn" path="res://sprites/Skeleton_Warrior/Dead.png" id="5_8paui"]
-[ext_resource type="Texture2D" uid="uid://de2lwwhujt0f" path="res://sprites/Skeleton_Warrior/Hurt.png" id="6_yw173"]
-[ext_resource type="Texture2D" uid="uid://dbdw6k4aa77ra" path="res://sprites/Skeleton_Warrior/Idle.png" id="7_5vhcy"]
+[ext_resource type="Texture2D" uid="uid://bt111daxmg08m" path="res://data/sprites/swordsman/Walk.png" id="2_u8erv"]
+[ext_resource type="Texture2D" uid="uid://dta41c2k5g7g4" path="res://data/sprites/swordsman/Attack_1.png" id="2_y2pvs"]
+[ext_resource type="Texture2D" uid="uid://bxn1mlmrgxs64" path="res://data/sprites/swordsman/Attack_2.png" id="3_memfn"]
+[ext_resource type="Texture2D" uid="uid://3ty58m2d23cf" path="res://data/sprites/swordsman/Attack_3.png" id="4_v4wxr"]
+[ext_resource type="Texture2D" uid="uid://1ymgs2wgm7mn" path="res://data/sprites/swordsman/Dead.png" id="5_8paui"]
+[ext_resource type="Texture2D" uid="uid://de2lwwhujt0f" path="res://data/sprites/swordsman/Hurt.png" id="6_yw173"]
+[ext_resource type="Texture2D" uid="uid://dbdw6k4aa77ra" path="res://data/sprites/swordsman/Idle.png" id="7_5vhcy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pcao5"]
 atlas = ExtResource("2_y2pvs")

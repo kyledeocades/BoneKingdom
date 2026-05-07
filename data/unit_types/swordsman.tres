@@ -12,4 +12,4 @@ max_health = 80
 move_speed = 55.0
 attack_range = 35.0
 sort_order = 20
-sprite_resource = "res://sprites/Skeleton_Spearman/spearman_frames.tres"
+sprite_resource = "res://data/sprites/spearman/spearman_frames.tres"
