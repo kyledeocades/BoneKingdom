@@ -35,6 +35,7 @@ func _ready() -> void:
 		if _menu_music.stream != null:
 			_menu_music.bus = "Music"
 			_menu_music.volume_db = -30.0
+			_menu_music.finished.connect(_on_menu_music_finished)
 			get_tree().root.call_deferred("add_child", _menu_music)
 			_menu_music.call_deferred("play")
 	elif not _menu_music.playing:
@@ -222,3 +223,7 @@ func _on_settings_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+func _on_menu_music_finished() -> void:
+	if _menu_music != null:
+		_menu_music.play()

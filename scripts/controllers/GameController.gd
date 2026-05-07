@@ -130,8 +130,13 @@ func _setup_music(music_path: String) -> void:
 	
 	_music.bus = "Music"
 	_music.volume_db = -22.0
+	_music.finished.connect(_on_stage_music_finished)
 	add_child(_music)
 	_music.play()
+
+func _on_stage_music_finished() -> void:
+	if _music != null and not _game_state.game_over:
+		_music.play()
 
 ## ESC key toggles pause menu (but not once game is over)
 ## Ctrl+Shift+B adds 500 bones (debug cheat)
