@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="UnitStats" format=3 uid="uid://e0fft8bjinjj"]
+[gd_resource type="Resource" script_class="UnitStats" format=3 uid="uid://cs6s4vjixwwnn"]
 
 [ext_resource type="Script" uid="uid://do7isxb5bikop" path="res://scripts/managers/UnitTypeStats.gd" id="1_4hgrq"]
 
 [resource]
 script = ExtResource("1_4hgrq")
 unit_id = "knight"
-player_name = "Skeleton Warrior"
-enemy_name = "Shield Guard"
+player_name = "Warrior"
+enemy_name = "Paladin"
 cost = 120
 max_health = 150
 damage = 15

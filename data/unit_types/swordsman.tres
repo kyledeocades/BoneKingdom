@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="UnitStats" format=3 uid="uid://brcywen6ftufa"]
+[gd_resource type="Resource" script_class="UnitStats" format=3 uid="uid://cxar15yimypd"]
 
 [ext_resource type="Script" uid="uid://do7isxb5bikop" path="res://scripts/managers/UnitTypeStats.gd" id="1_hy5de"]
 
 [resource]
 script = ExtResource("1_hy5de")
 unit_id = "swordsman"
-player_name = "Skeleton Spearman"
+player_name = "Spearman"
 enemy_name = "Footman"
 cost = 75
 max_health = 80
