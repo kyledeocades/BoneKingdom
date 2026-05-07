@@ -19,23 +19,31 @@ const C_PANEL   := Color("#16100A")
 
 var _settings_screen: SettingsScreen
 
+static var _menu_music: AudioStreamPlayer
+
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_build_ui()
-
-	# Setup menu music
-	var music = AudioStreamPlayer.new()
-	music.stream = load("res://data/audio/music/mondamusic-retro-arcade-game-music-512837.mp3")
-	if music.stream != null:
-		music.bus = "Music"
-		music.volume_db = -46.0
-		add_child(music)
-		music.play()
+	
+	# Setup menu music (persist across scenes)
+	if _menu_music == null:
+		_menu_music = AudioStreamPlayer.new()
+		_menu_music.stream = load("res://data/audio/music/mondamusic-retro-arcade-game-music-512837.mp3")
+		if _menu_music.stream != null:
+			_menu_music.bus = "Music"
+			_menu_music.volume_db = -30.0
+			get_tree().root.add_child(_menu_music)
+			_menu_music.play()
+	elif not _menu_music.playing:
+		_menu_music.play()
 	
 	# Create settings screen
 	_settings_screen = SettingsScreen.new()
 	add_child(_settings_screen)
+	
+	# Build UI
+	_build_ui()
 
+func _build_ui() -> void:
 	# ── Deep background ──────────────────────────────────────────────────────
 	var bg := ColorRect.new()
 	bg.color = C_BG

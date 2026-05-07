@@ -22,6 +22,11 @@ var _stage_manager: Node
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_stage_manager = StageManager.new()
+	
+	# Ensure menu music continues playing
+	if MainMenu._menu_music and not MainMenu._menu_music.playing:
+		MainMenu._menu_music.play()
+	
 	_build_ui()
 
 func _build_ui() -> void:

@@ -22,6 +22,9 @@ var _panel: PanelContainer
 var _master_slider: HSlider
 var _music_slider: HSlider
 var _sfx_slider: HSlider
+var _master_percent_label: Label
+var _music_percent_label: Label
+var _sfx_percent_label: Label
 
 signal closed
 
@@ -61,7 +64,6 @@ func _build_ui() -> void:
 	var panel_style := StyleBoxFlat.new()
 	panel_style.bg_color = C_BG
 	panel_style.border_color = C_GOLD_DIM
-	panel_style.set_border_enabled_all(true)
 	panel_style.set_border_width_all(2)
 	_panel.add_theme_stylebox_override("panel", panel_style)
 	
@@ -94,16 +96,16 @@ func _build_ui() -> void:
 	content_vbox.add_child(_make_divider(C_GOLD_DIM))
 	
 	# Master Volume
-	content_vbox.add_child(_make_volume_control("Master Volume", "master_volume"))
-	_master_slider = _get_last_slider(content_vbox)
+	_master_slider = HSlider.new()
+	_master_percent_label = _make_volume_control("Master Volume", _master_slider, content_vbox)
 	
 	# Music Volume
-	content_vbox.add_child(_make_volume_control("Music Volume", "music_volume"))
-	_music_slider = _get_last_slider(content_vbox)
+	_music_slider = HSlider.new()
+	_music_percent_label = _make_volume_control("Music Volume", _music_slider, content_vbox)
 	
 	# SFX Volume
-	content_vbox.add_child(_make_volume_control("SFX Volume", "sfx_volume"))
-	_sfx_slider = _get_last_slider(content_vbox)
+	_sfx_slider = HSlider.new()
+	_sfx_percent_label = _make_volume_control("SFX Volume", _sfx_slider, content_vbox)
 	
 	# Space before button
 	var spacer := Control.new()
@@ -123,7 +125,7 @@ func _build_ui() -> void:
 	# Initialize sliders with current values
 	_load_volume_settings()
 
-func _make_volume_control(label_text: String, setting_key: String) -> VBoxContainer:
+func _make_volume_control(label_text: String, slider: HSlider, container: Container) -> Label:
 	var vbox := VBoxContainer.new()
 	vbox.add_theme_constant_override("separation", 8)
 	
@@ -139,8 +141,7 @@ func _make_volume_control(label_text: String, setting_key: String) -> VBoxContai
 	hbox.add_theme_constant_override("separation", 12)
 	vbox.add_child(hbox)
 	
-	# Slider
-	var slider := HSlider.new()
+	# Configure slider
 	slider.min_value = -80
 	slider.max_value = 0
 	slider.step = 1
@@ -155,22 +156,14 @@ func _make_volume_control(label_text: String, setting_key: String) -> VBoxContai
 	percent_label.add_theme_color_override("font_color", C_ASH)
 	hbox.add_child(percent_label)
 	
-	# Store reference for later
-	slider.meta["percent_label"] = percent_label
-	slider.meta["setting_key"] = setting_key
-	
 	# Update percentage when slider changes
 	slider.value_changed.connect(func(val):
 		var db_to_percent = pow(10.0, val / 20.0) * 100
 		percent_label.text = "%d%%" % int(db_to_percent)
 	)
 	
-	return vbox
-
-func _get_last_slider(container: Container) -> HSlider:
-	var last_vbox = container.get_child(container.get_child_count() - 1)
-	var hbox = last_vbox.get_child(1)
-	return hbox.get_child(0)
+	container.add_child(vbox)
+	return percent_label
 
 func _make_divider(color: Color) -> ColorRect:
 	var divider := ColorRect.new()
@@ -204,24 +197,35 @@ func _make_button(text: String, bg_color: Color, text_color: Color) -> Button:
 	return btn
 
 func _load_volume_settings() -> void:
-	_master_slider.value = AudioServer.get_bus_mute(AudioServer.get_bus_index(MASTER_BUS)) and -80 or _db_to_slider(AudioServer.get_bus_volume_db(AudioServer.get_bus_index(MASTER_BUS)))
-	_music_slider.value = _db_to_slider(AudioServer.get_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS)))
-	_sfx_slider.value = _db_to_slider(AudioServer.get_bus_volume_db(AudioServer.get_bus_index(SFX_BUS)))
+	var master_index = AudioServer.get_bus_index(MASTER_BUS)
+	var music_index = AudioServer.get_bus_index(MUSIC_BUS)
+	var sfx_index = AudioServer.get_bus_index(SFX_BUS)
+	
+	if master_index >= 0:
+		_master_slider.value = AudioServer.get_bus_volume_db(master_index)
+		_update_percent_label(_master_slider.value, _master_percent_label)
+	if music_index >= 0:
+		_music_slider.value = AudioServer.get_bus_volume_db(music_index)
+		_update_percent_label(_music_slider.value, _music_percent_label)
+	if sfx_index >= 0:
+		_sfx_slider.value = AudioServer.get_bus_volume_db(sfx_index)
+		_update_percent_label(_sfx_slider.value, _sfx_percent_label)
 
-func _db_to_slider(db: float) -> float:
-	return db
-
-func _slider_to_db(slider_val: float) -> float:
-	return slider_val
+func _update_percent_label(db: float, label: Label) -> void:
+	var db_to_percent = pow(10.0, db / 20.0) * 100
+	label.text = "%d%%" % int(db_to_percent)
 
 func _on_master_volume_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MASTER_BUS), value)
+	_update_percent_label(value, _master_percent_label)
 
 func _on_music_volume_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS), value)
+	_update_percent_label(value, _music_percent_label)
 
 func _on_sfx_volume_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(SFX_BUS), value)
+	_update_percent_label(value, _sfx_percent_label)
 
 func open() -> void:
 	show()
