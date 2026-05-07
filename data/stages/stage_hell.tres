@@ -18,16 +18,3 @@ enemy_resource_rate = 4.0
 enemy_ai_mode = "aggressive"
 background_path = "res://data/backgrounds/bg_underworld.png"
 music_path = "res://data/audio/music/dragon-studio-battle-music-316528.mp3"
-
-
-### base_distance is distance from center to each base, so total distance between bases is 2x this
-##### i.e.e base_distance is distance from base to center
-### mine_distance is distance from base to mine, 
-##### i.e. base_distance - mine_distance is distance from the mine to center
-### allowed_player_units are the amount of units the player can spawn, empty array means no restrictions
-### allowed_enemy_units are the units that can spawn for the enemy, empty array means no restrictions
-### starting_player_resources is the amount of resources the player starts with at the beginning of the stage
-### starting_enemy_resources is the amount of resources the enemy starts with at the beginning of the stage
-### player_resource_rate is the multiplier for how fast player resources are generated at the mine (2.0 is 2x rate)
-### enemy_resource_rate is the multiplier for how fast enemy resources are generated at the mine
-### enemy_ai_mode is the AI behavior: "random", "smart", "economical, or "aggressive"

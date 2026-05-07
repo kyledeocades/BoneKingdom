@@ -28,6 +28,6 @@ music_path = "res://data/audio/music/dragon-studio-battle-music-316528.mp3"
 ### allowed_enemy_units are the units that can spawn for the enemy, empty array means no restrictions
 ### starting_player_resources is the amount of resources the player starts with at the beginning of the stage
 ### starting_enemy_resources is the amount of resources the enemy starts with at the beginning of the stage
-### player_resource_rate is the multiplier for how fast player resources are generated at the mine (2.0 is 2x rate)
+### player_resource_rate is the multiplier for how fast player resources are generated at the mine, where 2.0 is 2x rate
 ### enemy_resource_rate is the multiplier for how fast enemy resources are generated at the mine
-### enemy_ai_mode is the AI behavior: "random" or "smart"
+### enemy_ai_mode is the AI behavior: "random" or "aggressive" or "economical" or "smart"

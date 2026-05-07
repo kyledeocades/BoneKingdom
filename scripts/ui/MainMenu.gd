@@ -73,16 +73,6 @@ func _build_ui() -> void:
 	vbox.add_theme_constant_override("separation", 0)
 	center.add_child(vbox)
 
-	# ── Skull ornament ────────────────────────────────────────────────────────
-	var skulls := Label.new()
-	skulls.text = "☠                    ☠"
-	skulls.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER	
-	skulls.add_theme_font_override("font", FONT_UI)	
-	skulls.add_theme_font_size_override("font_size", 22)
-	skulls.add_theme_color_override("font_color", C_GOLD_DIM)
-	vbox.add_child(skulls)
-
-	_add_spacer(vbox, 8)
 
 	# ── BONE KINGDOM title ────────────────────────────────────────────────────
 	var title := Label.new()
