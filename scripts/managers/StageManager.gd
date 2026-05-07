@@ -23,8 +23,11 @@ func _ready():
 func load_and_apply_stage(stage_id: String) -> bool:
 	var stage = load_stage(stage_id)
 	if stage == null:
-		push_error("Failed to load stage: %s" % stage_id)
-		return false
+		push_warning("Failed to load stage '%s', creating default stage with hardcoded values" % stage_id)
+		stage = _create_default_stage(stage_id)
+		if stage == null:
+			push_error("Could not create default stage")
+			return false
 	
 	_current_stage = stage
 	apply_stage_config(stage)
@@ -34,11 +37,21 @@ func load_and_apply_stage(stage_id: String) -> bool:
 ## Load a stage resource by ID (looks for stage_{id}.tres)
 func load_stage(stage_id: String) -> StageConfig:
 	var path = "%s/stage_%s.tres" % [STAGE_DIR, stage_id]
+	print("StageManager: Attempting to load stage from: %s" % path)
+	
 	var stage = load(path)
 	
-	if stage == null or not stage is StageConfig:
-		push_error("Stage not found or invalid: %s" % path)
+	if stage == null:
+		push_error("Stage file not found: %s" % path)
 		return null
+	
+	if not stage is StageConfig:
+		push_error("Loaded resource is not a StageConfig: %s (type: %s)" % [path, stage.get_class()])
+		return null
+	
+	print("StageManager: Successfully loaded stage '%s' with base_distance=%f, mine_distance=%f" % [
+		stage.stage_id, stage.base_distance, stage.mine_distance
+	])
 	
 	return stage
 
@@ -186,6 +199,22 @@ func _apply_unit_restrictions(config: StageConfig) -> void:
 ## Get current stage config
 func get_current_stage() -> StageConfig:
 	return _current_stage
+
+
+## Create a default stage config (fallback if file loading fails)
+func _create_default_stage(stage_id: String) -> StageConfig:
+	var stage = StageConfig.new()
+	stage.stage_id = stage_id
+	stage.stage_name = "Default Stage"
+	stage.base_distance = 2000.0
+	stage.mine_distance = 400.0
+	stage.starting_resources = 500
+	stage.resource_rate = 1.0
+	stage.background_path = "res://data/backgrounds/bg_underworld.png"
+	print("StageManager: Created fallback default stage with base_distance=%f, mine_distance=%f" % [
+		stage.base_distance, stage.mine_distance
+	])
+	return stage
 
 
 ## List all available stages
