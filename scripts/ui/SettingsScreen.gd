@@ -148,7 +148,7 @@ func _make_volume_control(label_text: String, slider: HSlider, container: Contai
 	vbox.add_child(hbox)
 	
 	# Configure slider
-	slider.min_value = -80
+	slider.min_value = -30
 	slider.max_value = 0
 	slider.step = 1
 	slider.custom_minimum_size = Vector2(280, 0)
@@ -165,8 +165,8 @@ func _make_volume_control(label_text: String, slider: HSlider, container: Contai
 	
 	# Update percentage when slider changes
 	slider.value_changed.connect(func(val):
-		# Linear percentage mapping: -80dB = 0%, 0dB = 100%
-		var linear_percent = ((val + 80) / 80.0) * 100
+		# Linear percentage mapping: -30dB = 0%, 0dB = 100%
+		var linear_percent = ((val + 30) / 30.0) * 100
 		percent_label.text = "%d%%" % int(linear_percent)
 	)
 	
