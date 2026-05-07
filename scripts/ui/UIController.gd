@@ -237,7 +237,7 @@ func _on_game_ended(result: String) -> void:
 			victory_sfx.bus = "SFX"
 			victory_sfx.volume_db = -55.0
 			victory_sfx.max_distance = 1500.0
-			victory_sfx.attenuation = AudioStreamPlayer2D.ATTENUATION_LOGARITHMIC
+			victory_sfx.attenuation = 2  # Logarithmic attenuation
 			victory_sfx.global_position = get_viewport().get_camera_2d().global_position
 			add_child(victory_sfx)
 			victory_sfx.play()
@@ -251,7 +251,7 @@ func _on_game_ended(result: String) -> void:
 			defeat_sfx.bus = "SFX"
 			defeat_sfx.volume_db = -50.0
 			defeat_sfx.max_distance = 1500.0
-			defeat_sfx.attenuation = AudioStreamPlayer2D.ATTENUATION_LOGARITHMIC
+			defeat_sfx.attenuation = 2  # Logarithmic attenuation
 			defeat_sfx.global_position = get_viewport().get_camera_2d().global_position
 			add_child(defeat_sfx)
 			defeat_sfx.play()

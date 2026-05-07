@@ -66,7 +66,7 @@ func _play_damage_sound() -> void:
 	damage_sfx.bus = "SFX"
 	damage_sfx.volume_db = -60.0
 	damage_sfx.max_distance = 800.0  # Sound inaudible beyond 800 pixels
-	damage_sfx.attenuation = AudioStreamPlayer2D.ATTENUATION_LOGARITHMIC
+	damage_sfx.attenuation = 2  # Logarithmic attenuation
 	damage_sfx.global_position = global_position
 	add_child(damage_sfx)
 	damage_sfx.play()
