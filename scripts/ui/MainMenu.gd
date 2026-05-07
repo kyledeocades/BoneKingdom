@@ -182,7 +182,8 @@ func _start_title_pulse(title: Label) -> void:
 # ── Actions ───────────────────────────────────────────────────────────────────
 
 func _on_play_pressed() -> void:
-	get_tree().change_scene_to_file(GAME_SCENE_PATH)
+	# Transition to stage select instead of overlaying
+	get_tree().change_scene_to_file("res://scenes/StageSelect.tscn")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

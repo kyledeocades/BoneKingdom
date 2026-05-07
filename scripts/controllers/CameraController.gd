@@ -10,6 +10,7 @@ class_name CameraController
 @export var drag_sensitivity: float = 1.0
 @export var min_margin: float = 80.0
 @export var max_margin: float = 80.0
+@export var margin_per_base_distance: float = 0.1  # Scale margins with base distance
 
 var is_dragging: bool = false
 
@@ -46,6 +47,12 @@ func handle_keyboard(delta: float):
 
 	if direction != 0.0:
 		move_camera_by(direction * move_speed * delta)
+
+## Adjust camera margins based on stage base distance
+func set_bounds_from_base_distance(base_distance: float) -> void:
+	var extra_margin = base_distance * margin_per_base_distance
+	min_margin = 80.0 + extra_margin
+	max_margin = 80.0 + extra_margin
 
 func move_camera_by(amount: float):
 	if camera == null or left_anchor == null or right_anchor == null:

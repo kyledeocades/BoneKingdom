@@ -8,8 +8,8 @@ var _combat_unit_scene: PackedScene
 var _worker_unit_scene: PackedScene
 var _unit_catalog: Node
 var _event_bus: Node
-var _player_spawn_pos: Vector2
-var _enemy_spawn_pos: Vector2
+var _player_resource_rate: float = 1.0
+var _enemy_resource_rate: float = 1.0
 
 func _ready():
 	add_to_group("spawn_manager")
@@ -20,16 +20,18 @@ func _ready():
 	_unit_catalog = get_tree().get_first_node_in_group("unit_catalog")
 	_event_bus = get_tree().get_first_node_in_group("game_event_bus")
 
-	var main = get_tree().get_first_node_in_group("main")
-	if main:
-		var player_spawn = main.get_node_or_null("PlayerSpawn")
-		var enemy_spawn = main.get_node_or_null("EnemySpawn")
 
-		if player_spawn:
-			_player_spawn_pos = player_spawn.global_position
+## Set player resource gathering rate multiplier from stage config
+func set_player_resource_rate(rate: float) -> void:
+	_player_resource_rate = rate
 
-		if enemy_spawn:
-			_enemy_spawn_pos = enemy_spawn.global_position
+## Set enemy resource gathering rate multiplier from stage config
+func set_enemy_resource_rate(rate: float) -> void:
+	_enemy_resource_rate = rate
+
+## Legacy: Set resource rate (applies to player for backward compatibility)
+func set_resource_rate(rate: float) -> void:
+	_player_resource_rate = rate
 
 
 ## Spawn a unit with stats applied - creates CombatUnit or WorkerUnit based on stats
@@ -70,7 +72,10 @@ func apply_unit_stats(unit: Node, stats, team: String) -> void:
 	unit.attack_range = stats.attack_range
 	unit.attack_cooldown = stats.attack_cooldown
 	unit.is_worker = stats.is_worker
-	unit.gather_rate = stats.gather_rate
+	
+	# Apply team-specific resource rate
+	var resource_rate = _player_resource_rate if team == "player" else _enemy_resource_rate
+	unit.gather_rate = stats.gather_rate * resource_rate
 	unit.gather_cooldown = stats.gather_cooldown
 
 	apply_sprite_resource(unit, stats)
@@ -165,9 +170,31 @@ func play_default_animation(animated_sprite: AnimatedSprite2D) -> void:
 
 ## Spawn for player
 func spawn_player_unit(unit_id: String) -> Node:
-	return spawn_unit(unit_id, "player", _player_spawn_pos)
+	var pos = _get_player_spawn_pos()
+	return spawn_unit(unit_id, "player", pos)
 
 
 ## Spawn for enemy
 func spawn_enemy_unit(unit_id: String) -> Node:
-	return spawn_unit(unit_id, "enemy", _enemy_spawn_pos)
+	var pos = _get_enemy_spawn_pos()
+	return spawn_unit(unit_id, "enemy", pos)
+
+
+## Get current player spawn position (fetched dynamically)
+func _get_player_spawn_pos() -> Vector2:
+	var main = get_tree().get_first_node_in_group("main")
+	if main:
+		var player_spawn = main.get_node_or_null("PlayerSpawn")
+		if player_spawn:
+			return player_spawn.global_position
+	return Vector2.ZERO
+
+
+## Get current enemy spawn position (fetched dynamically)
+func _get_enemy_spawn_pos() -> Vector2:
+	var main = get_tree().get_first_node_in_group("main")
+	if main:
+		var enemy_spawn = main.get_node_or_null("EnemySpawn")
+		if enemy_spawn:
+			return enemy_spawn.global_position
+	return Vector2.ZERO

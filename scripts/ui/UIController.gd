@@ -52,9 +52,13 @@ func _ready():
 	# Initial UI setup
 	_on_bones_changed(_game_state.bones if _game_state else 0)
 	_on_result_changed("", false)
+	
+	#print("DEBUG UIController: Ready. Bones: ", _game_state.bones if _game_state else "UNKNOWN")
 
 func _process(_delta: float) -> void:
 	_update_button_cooldowns()
+
+#var _debug_frame_count = 0
 
 ## Build player spawn buttons from catalog
 func build_spawn_buttons(on_spawn_pressed: Callable) -> void:
@@ -71,9 +75,13 @@ func build_spawn_buttons(on_spawn_pressed: Callable) -> void:
 
 	spawn_buttons.add_theme_constant_override("separation", 12)
 
-	for stats in _unit_catalog.get_player_spawn_units():
+	var units = _unit_catalog.get_player_spawn_units()
+	#print("DEBUG UIController: Creating spawn buttons for ", units.size(), " units")
+	
+	for stats in units:
 		var button_container = _create_stylized_button(stats, on_spawn_pressed)
 		spawn_buttons.add_child(button_container)
+		#print("DEBUG UIController: Added button for ", stats.unit_id)
 
 func _create_stylized_button(stats, on_spawn_pressed: Callable) -> Control:
 	# Main container for the button
@@ -174,6 +182,10 @@ func _update_button_cooldowns() -> void:
 	if _game_controller == null or _game_state == null:
 		return
 	
+	#_debug_frame_count += 1
+	#if _debug_frame_count <= 3:
+		#print("DEBUG UIController: Frame %d, Bones: %d, Button count: %d" % [_debug_frame_count, _game_state.bones, _button_data.size()])
+	
 	for data in _button_data:
 		var button: Button = data.button
 		var unit_id: String = data.unit_id
@@ -184,6 +196,9 @@ func _update_button_cooldowns() -> void:
 		
 		var cooldown_remaining = _game_controller.get_unit_cooldown(unit_id)
 		var can_afford = _game_state.bones >= stats.cost
+		
+		#if _debug_frame_count <= 3:
+			#print("  %s: cost=%d, can_afford=%s, cooldown=%.1f" % [unit_id, stats.cost, can_afford, cooldown_remaining])
 		
 		# Update cooldown overlay
 		if cooldown_remaining > 0:

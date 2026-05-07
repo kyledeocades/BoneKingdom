@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="StageConfig" format=3 uid="uid://cno5yw71x7kqa"]
+
+[ext_resource type="Script" uid="uid://dtevsh6rqd6ml" path="res://scripts/managers/StageConfig.gd" id="1_stage_config"]
+
+[resource]
+script = ExtResource("1_stage_config")
+stage_id = "plains2"
+stage_name = "Fertile Plains - 2"
+is_available = true
+base_distance = 2000.0
+mine_distance = 450.0
+allowed_player_units = []
+allowed_enemy_units = []
+starting_player_resources = 650
+starting_enemy_resources = 650
+player_resource_rate = 2.0
+enemy_resource_rate = 2.0
+enemy_ai_mode = "economical"
+background_path = "res://data/backgrounds/bg_plains.jpg"
