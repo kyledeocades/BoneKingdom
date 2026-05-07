@@ -299,6 +299,7 @@ size = Vector2(24, 65)
 script = ExtResource("1_combat")
 
 [node name="Label" type="Label" parent="." unique_id=1410317595]
+visible = false
 offset_left = -35.0
 offset_top = -45.0
 offset_right = 5.0
@@ -307,8 +308,8 @@ text = "Combat"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=567630334]
 texture_filter = 1
-position = Vector2(12, -6)
-scale = Vector2(1.1, 1.1)
+position = Vector2(12, -20)
+scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_yw173")
 animation = &"Attack1"
 autoplay = "Idle"

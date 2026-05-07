@@ -126,13 +126,14 @@ script = ExtResource("1_worker")
 shape = SubResource("RectangleShape2D_6e3tn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1545629886]
-position = Vector2(0, 30)
-scale = Vector2(0.3, 0.3)
+position = Vector2(0, 28)
+scale = Vector2(0.28, 0.28)
 skew = -0.013962634
 sprite_frames = SubResource("SpriteFrames_0pj3p")
 animation = &"Dead"
 
 [node name="Label" type="Label" parent="." unique_id=1856155650]
+visible = false
 offset_left = -35.0
 offset_top = -45.0
 offset_right = 5.0
