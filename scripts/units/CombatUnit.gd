@@ -53,6 +53,13 @@ func process_unit(delta: float) -> void:
 			animated_sprite.play(attack_anim)
 			attack_timer = attack_cooldown
 
+			#Attack sound
+			var slash_sfx = AudioStreamPlayer.new()
+			slash_sfx.stream = preload("res://audio/442903__qubodup__slash.wav")
+			slash_sfx.volume_db = -60.0
+			add_child(slash_sfx)
+			slash_sfx.play()
+
 ## Find target using priority: nearest enemy unit → enemy mine → enemy base
 func find_target() -> Node:
 	var main = get_tree().get_first_node_in_group("main")
