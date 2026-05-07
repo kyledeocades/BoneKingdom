@@ -47,6 +47,13 @@ func process_unit(_delta: float) -> void:
 
 func take_damage(amount: int) -> void:
 	current_health -= amount
+
+	#Damage sound
+	var damage_sfx = AudioStreamPlayer.new()
+	damage_sfx.stream = preload("res://audio/458867__raclure__damage-sound-effect.mp3")
+	damage_sfx.volume_db = -60.0
+	add_child(damage_sfx)
+	damage_sfx.play()
 	
 	if current_health < 0:
 		current_health = 0
