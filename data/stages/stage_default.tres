@@ -5,10 +5,10 @@
 [resource]
 script = ExtResource("1_stage_config")
 stage_id = "default"
-stage_name = "Default Stage"
+stage_name = "Lich's Origins (Default)"
 is_available = true
-base_distance = 2000.0
-mine_distance = 400.0
+base_distance = 1600.0
+mine_distance = 350.0
 allowed_player_units = []
 allowed_enemy_units = []
 starting_player_resources = 500
