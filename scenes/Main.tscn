@@ -54,13 +54,6 @@ scale = Vector2(0.81, 0.81)
 texture = ExtResource("10_cvmbd")
 region_rect = Rect2(0, 0, 4000, 720)
 
-[node name="BackgroundMirror" type="Sprite2D" parent="." unique_id=1213784103]
-texture_repeat = 3
-position = Vector2(640, 360)
-scale = Vector2(-0.81, 0.81)
-texture = ExtResource("10_cvmbd")
-region_rect = Rect2(0, 0, 4000, 720)
-
 [node name="PlayerSpawn" type="Marker2D" parent="." unique_id=935618741]
 position = Vector2(220, 500)
 
