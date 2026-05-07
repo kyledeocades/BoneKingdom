@@ -29,9 +29,6 @@ func _ready() -> void:
 	
 	# Ensure menu music continues playing
 	if MainMenu._menu_music and not MainMenu._menu_music.playing:
-		# Reconnect the looping signal in case it was disconnected
-		if not MainMenu._menu_music.finished.is_connected(MainMenu._on_menu_music_finished):
-			MainMenu._menu_music.finished.connect(MainMenu._on_menu_music_finished)
 		MainMenu._menu_music.play()
 	
 	_build_ui()
