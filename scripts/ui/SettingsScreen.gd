@@ -165,8 +165,9 @@ func _make_volume_control(label_text: String, slider: HSlider, container: Contai
 	
 	# Update percentage when slider changes
 	slider.value_changed.connect(func(val):
-		var db_to_percent = pow(10.0, val / 20.0) * 100
-		percent_label.text = "%d%%" % int(db_to_percent)
+		# Linear percentage mapping: -80dB = 0%, 0dB = 100%
+		var linear_percent = ((val + 80) / 80.0) * 100
+		percent_label.text = "%d%%" % int(linear_percent)
 	)
 	
 	container.add_child(vbox)
