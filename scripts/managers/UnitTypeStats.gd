@@ -17,6 +17,7 @@ class_name UnitStats
 @export var sort_order: int = 0
 @export var player_spawn_enabled: bool = true
 @export var enemy_ai_enabled: bool = true
+@export var spawn_cooldown: float = 3.0
 
 # Optional: path to a sprite resource (Texture2D or SpriteFrames)
 @export var sprite_resource: String = ""
