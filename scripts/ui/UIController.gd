@@ -13,6 +13,9 @@ const C_ASH     := Color("#5A4E3A")
 const C_PANEL   := Color("#16100A")
 const C_BG      := Color("#0C0906")
 
+# ── Fonts ──────────────────────────────────────────────────────────────────────
+const FONT_UI    := preload("res://data/fonts/Jersey/Jersey10-Regular.ttf")
+
 @onready var bones_label = get_node_or_null("../UI/BonesLabel")
 @onready var result_label = get_node_or_null("../UI/ResultLabel")
 @onready var spawn_buttons = get_node_or_null("../UI/SpawnButtons")
@@ -130,7 +133,8 @@ func _create_stylized_button(stats, on_spawn_pressed: Callable) -> Control:
 	label.text = stats.player_name + "\n💀 " + str(stats.cost)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", 14)
+	label.add_theme_font_override("font", FONT_UI)
+	label.add_theme_font_size_override("font_size", 24)
 	label.add_theme_color_override("font_color", C_BONE)
 	label.add_theme_constant_override("line_spacing", 2)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -174,7 +178,8 @@ func _create_stylized_button(stats, on_spawn_pressed: Callable) -> Control:
 func _on_bones_changed(new_bones: int) -> void:
 	if bones_label != null:
 		bones_label.text = "💀 Bones: " + str(new_bones)
-		bones_label.add_theme_font_size_override("font_size", 20)
+		bones_label.add_theme_font_override("font", FONT_UI)
+		bones_label.add_theme_font_size_override("font_size", 32)
 		bones_label.add_theme_color_override("font_color", C_BONE)
 
 ## Update button states based on cooldowns and affordability

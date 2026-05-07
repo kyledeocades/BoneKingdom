@@ -16,6 +16,10 @@ const C_ASH     := Color("#5A4E3A")
 const C_PANEL   := Color("#110D08")
 const C_BG      := Color("#160F09")
 
+# ── Fonts ──────────────────────────────────────────────────────────────────────
+const FONT_TITLE := preload("res://data/fonts/Jacquard/Jacquard24-Regular.ttf")
+const FONT_UI    := preload("res://data/fonts/Jersey/Jersey10-Regular.ttf")
+
 # ── Spacing ───────────────────────────────────────────────────────────────────
 const MARGIN_HORIZ = 48
 const MARGIN_VERT  = 52
@@ -90,16 +94,18 @@ func _build_ui() -> void:
 	# ── Content ──────────────────────────────────────────────────────────────
 	var skull := Label.new()
 	skull.text = "💀"
-	skull.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	skull.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER	
+	skull.add_theme_font_override("font", FONT_UI)	
 	skull.add_theme_font_size_override("font_size", 34)
 	vbox.add_child(skull)
 
 	_add_spacer(vbox, SPACER_SKULL_BOTTOM)
 
 	var title := Label.new()
-	title.text = "PAUSED"
+	title.text = "Paused"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 38)
+	title.add_theme_font_override("font", FONT_TITLE)
+	title.add_theme_font_size_override("font_size", 80)
 	title.add_theme_color_override("font_color", C_BONE)
 	vbox.add_child(title)
 
@@ -151,6 +157,7 @@ func _build_ui() -> void:
 	var hint := Label.new()
 	hint.text = "ESC to resume"
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	hint.add_theme_font_override("font", FONT_UI)
 	hint.add_theme_font_size_override("font_size", 11)
 	hint.add_theme_color_override("font_color", Color(C_ASH, 0.55))
 	vbox.add_child(hint)
@@ -200,7 +207,8 @@ func _make_button(label_text: String, bg: Color, fg: Color) -> Button:
 	var btn := Button.new()
 	btn.text = label_text
 	btn.custom_minimum_size = Vector2(BUTTON_WIDTH, BUTTON_HEIGHT)
-	btn.add_theme_font_size_override("font_size", 18)
+	btn.add_theme_font_override("font", FONT_UI)
+	btn.add_theme_font_size_override("font_size", 24)
 	btn.add_theme_color_override("font_color", fg)
 	btn.add_theme_color_override("font_hover_color", Color.WHITE)
 	btn.add_theme_color_override("font_pressed_color", C_GOLD)

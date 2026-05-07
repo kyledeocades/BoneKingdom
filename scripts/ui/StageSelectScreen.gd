@@ -16,6 +16,10 @@ const C_CRIMSON := Color("#8B1A1A")
 const C_ASH     := Color("#5A4E3A")
 const C_PANEL   := Color("#16100A")
 
+# ── Fonts ──────────────────────────────────────────────────────────────────────
+const FONT_TITLE := preload("res://data/fonts/Jacquard/Jacquard24-Regular.ttf")
+const FONT_UI    := preload("res://data/fonts/Jersey/Jersey10-Regular.ttf")
+
 var _selected_stage_id: String = ""
 var _stage_manager: Node
 
@@ -58,7 +62,8 @@ func _build_ui() -> void:
 	var title := Label.new()
 	title.text = "SELECT STAGE"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 52)
+	title.add_theme_font_override("font", FONT_TITLE)
+	title.add_theme_font_size_override("font_size", 80)
 	title.add_theme_color_override("font_color", C_BONE)
 	vbox.add_child(title)
 
@@ -76,6 +81,7 @@ func _build_ui() -> void:
 		var no_stages := Label.new()
 		no_stages.text = "No stages available"
 		no_stages.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		no_stages.add_theme_font_override("font", FONT_UI)
 		no_stages.add_theme_color_override("font_color", C_ASH)
 		vbox.add_child(no_stages)
 	else:
@@ -83,6 +89,13 @@ func _build_ui() -> void:
 			var stage_btn = _make_stage_button(stage)
 			vbox.add_child(stage_btn)
 			_add_spacer(vbox, 16)
+		
+		# No stages label styling
+		var no_stages := Label.new()
+		no_stages.text = "No stages available"
+		no_stages.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		no_stages.add_theme_font_override("font", FONT_UI)
+		no_stages.add_theme_color_override("font_color", C_ASH)
 
 	_add_spacer(vbox, 32)
 
@@ -99,7 +112,8 @@ func _make_stage_button(stage: StageConfig) -> Button:
 	var btn := Button.new()
 	btn.text = "%s" % stage.stage_name
 	btn.custom_minimum_size = Vector2(400, 70)
-	btn.add_theme_font_size_override("font_size", 20)
+	btn.add_theme_font_override("font", FONT_UI)
+	btn.add_theme_font_size_override("font_size", 24)
 	btn.add_theme_color_override("font_color", C_BONE)
 	btn.add_theme_color_override("font_hover_color", Color.WHITE)
 	btn.add_theme_color_override("font_pressed_color", C_GOLD)
@@ -140,7 +154,8 @@ func _make_button(label_text: String, bg: Color, fg: Color, primary: bool) -> Bu
 	var btn := Button.new()
 	btn.text = label_text
 	btn.custom_minimum_size = Vector2(360, 60)
-	btn.add_theme_font_size_override("font_size", 22)
+	btn.add_theme_font_override("font", FONT_UI)
+	btn.add_theme_font_size_override("font_size", 18)
 	btn.add_theme_color_override("font_color", fg)
 	btn.add_theme_color_override("font_hover_color", Color.WHITE)
 	btn.add_theme_color_override("font_pressed_color", C_GOLD)
@@ -198,6 +213,9 @@ func _on_stage_selected(stage_id: String) -> void:
 	print("Stage selected: %s" % stage_id)
 	# Pass stage ID to GameController through static variable
 	GameController.selected_stage_id = stage_id
+	# Stop menu music before transitioning to game
+	if MainMenu._menu_music and MainMenu._menu_music.playing:
+		MainMenu._menu_music.stop()
 	get_tree().change_scene_to_file(GAME_SCENE_PATH)
 
 func _on_back_pressed() -> void:

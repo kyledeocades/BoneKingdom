@@ -17,6 +17,10 @@ const C_CRIMSON := Color("#8B1A1A")
 const C_ASH     := Color("#5A4E3A")
 const C_PANEL   := Color("#16100A")
 
+# ── Fonts ──────────────────────────────────────────────────────────────────────
+const FONT_TITLE := preload("res://data/fonts/Jacquard/Jacquard24-Regular.ttf")
+const FONT_UI    := preload("res://data/fonts/Jersey/Jersey10-Regular.ttf")
+
 var _settings_screen: SettingsScreen
 
 static var _menu_music: AudioStreamPlayer
@@ -71,7 +75,8 @@ func _build_ui() -> void:
 	# ── Skull ornament ────────────────────────────────────────────────────────
 	var skulls := Label.new()
 	skulls.text = "☠                    ☠"
-	skulls.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	skulls.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER	
+	skulls.add_theme_font_override("font", FONT_UI)	
 	skulls.add_theme_font_size_override("font_size", 22)
 	skulls.add_theme_color_override("font_color", C_GOLD_DIM)
 	vbox.add_child(skulls)
@@ -81,9 +86,10 @@ func _build_ui() -> void:
 	# ── BONE KINGDOM title ────────────────────────────────────────────────────
 	var title := Label.new()
 	title.name = "Title"
-	title.text = "BONE\nKINGDOM"
+	title.text = "Bone\nKingdom"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 80)
+	title.add_theme_font_override("font", FONT_TITLE)
+	title.add_theme_font_size_override("font_size", 96)
 	title.add_theme_color_override("font_color", C_BONE)
 	title.add_theme_constant_override("line_separation", -10)
 	vbox.add_child(title)
@@ -98,8 +104,9 @@ func _build_ui() -> void:
 	# ── Tagline ───────────────────────────────────────────────────────────────
 	var tagline := Label.new()
 	tagline.text = "Rule the dead. Crush the living."
-	tagline.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	tagline.add_theme_font_size_override("font_size", 15)
+	tagline.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER	
+	tagline.add_theme_font_override("font", FONT_UI)	
+	tagline.add_theme_font_size_override("font_size", 24)
 	tagline.add_theme_color_override("font_color", C_ASH)
 	vbox.add_child(tagline)
 
@@ -129,8 +136,9 @@ func _build_ui() -> void:
 	# ── Footer hint ───────────────────────────────────────────────────────────
 	var footer := Label.new()
 	footer.text = "Press  ESC  during battle to pause"
-	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	footer.add_theme_font_size_override("font_size", 11)
+	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER	
+	footer.add_theme_font_override("font", FONT_UI)	
+	footer.add_theme_font_size_override("font_size", 24)
 	footer.add_theme_color_override("font_color", Color(C_ASH, 0.6))
 	vbox.add_child(footer)
 
@@ -143,7 +151,8 @@ func _make_button(label_text: String, bg: Color, fg: Color, primary: bool) -> Bu
 	var btn := Button.new()
 	btn.text = label_text
 	btn.custom_minimum_size = Vector2(360, 60)
-	btn.add_theme_font_size_override("font_size", 22)
+	btn.add_theme_font_override("font", FONT_UI)
+	btn.add_theme_font_size_override("font_size", 32)
 	btn.add_theme_color_override("font_color", fg)
 	btn.add_theme_color_override("font_hover_color", Color.WHITE)
 	btn.add_theme_color_override("font_pressed_color", C_GOLD)

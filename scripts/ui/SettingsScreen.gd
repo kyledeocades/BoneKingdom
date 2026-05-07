@@ -13,6 +13,10 @@ const C_ASH     := Color("#5A4E3A")
 const C_PANEL   := Color("#110D08")
 const C_BG      := Color("#160F09")
 
+# ── Fonts ──────────────────────────────────────────────────────────────────────
+const FONT_TITLE := preload("res://data/fonts/Jacquard/Jacquard24-Regular.ttf")
+const FONT_UI    := preload("res://data/fonts/Jersey/Jersey10-Regular.ttf")
+
 # ── Audio Bus Indices ────────────────────────────────────────────────────────
 const MASTER_BUS = "Master"
 const MUSIC_BUS = "Music"
@@ -86,9 +90,10 @@ func _build_ui() -> void:
 	
 	# Title
 	var title := Label.new()
-	title.text = "SETTINGS"
+	title.text = "Settings"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 28)
+	title.add_theme_font_override("font", FONT_TITLE)
+	title.add_theme_font_size_override("font_size", 64)
 	title.add_theme_color_override("font_color", C_BONE)
 	content_vbox.add_child(title)
 	
@@ -132,7 +137,8 @@ func _make_volume_control(label_text: String, slider: HSlider, container: Contai
 	# Label
 	var label := Label.new()
 	label.text = label_text
-	label.add_theme_font_size_override("font_size", 14)
+	label.add_theme_font_override("font", FONT_UI)
+	label.add_theme_font_size_override("font_size", 24)
 	label.add_theme_color_override("font_color", C_GOLD)
 	vbox.add_child(label)
 	
@@ -152,7 +158,8 @@ func _make_volume_control(label_text: String, slider: HSlider, container: Contai
 	var percent_label := Label.new()
 	percent_label.text = "100%"
 	percent_label.custom_minimum_size = Vector2(40, 0)
-	percent_label.add_theme_font_size_override("font_size", 12)
+	percent_label.add_theme_font_override("font", FONT_UI)
+	percent_label.add_theme_font_size_override("font_size", 24)
 	percent_label.add_theme_color_override("font_color", C_ASH)
 	hbox.add_child(percent_label)
 	
@@ -191,8 +198,9 @@ func _make_button(text: String, bg_color: Color, text_color: Color) -> Button:
 	pressed_style.set_corner_radius_all(4)
 	btn.add_theme_stylebox_override("pressed", pressed_style)
 	
+	btn.add_theme_font_override("font", FONT_UI)
 	btn.add_theme_color_override("font_color", text_color)
-	btn.add_theme_font_size_override("font_size", 14)
+	btn.add_theme_font_size_override("font_size", 24)
 	
 	return btn
 
