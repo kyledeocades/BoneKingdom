@@ -360,6 +360,9 @@ func _on_enemy_spawn_timer_tick_economical() -> void:
 	# Detect if player is sending a wave (multiple units moving toward enemy)
 	var player_wave_incoming = _detect_player_wave()
 	
+	var enemy_worker_count = _unit_manager.count_workers("enemy")
+	var player_worker_count = _unit_manager.count_workers("player")
+	
 	# Adjust spawn rate
 	var base_spawn_interval = 4.0  # Default: slow spawn rate
 	if player_wave_incoming:
@@ -378,14 +381,24 @@ func _on_enemy_spawn_timer_tick_economical() -> void:
 				_spawn_manager.spawn_enemy_unit(combat_id)
 		return
 	
-	# Normal economy mode: prioritize workers
-	var worker_count = _unit_manager.count_workers("enemy")
-	if worker_count < 4 and _game_state.enemy_bones < 1000:
+	# Normal economy mode: match or exceed player worker count
+	# Prioritize workers to ensure income isn't eclipsed by player
+	if enemy_worker_count < player_worker_count:
 		var worker_id = get_affordable_enemy_worker_unit_id()
 		if not worker_id.is_empty():
 			var worker_stats = _unit_catalog.get_stats(worker_id)
-			# Spawn worker if not saving for a combat push
-			if _game_state.enemy_bones >= worker_stats.cost + 150:
+			# Spawn worker if we have enough bones and maintain combat buffer
+			if _game_state.enemy_bones >= worker_stats.cost + 100:
+				if _game_state.try_spend_enemy_bones(worker_stats.cost):
+					_spawn_manager.spawn_enemy_unit(worker_id)
+				return
+	
+	# When worker count is matched or exceeded, allow up to 5 workers for peak economy
+	if enemy_worker_count < 5 and _game_state.enemy_bones > 800:
+		var worker_id = get_affordable_enemy_worker_unit_id()
+		if not worker_id.is_empty():
+			var worker_stats = _unit_catalog.get_stats(worker_id)
+			if _game_state.enemy_bones >= worker_stats.cost + 200:
 				if _game_state.try_spend_enemy_bones(worker_stats.cost):
 					_spawn_manager.spawn_enemy_unit(worker_id)
 				return
