@@ -25,6 +25,12 @@ var _unit_cooldowns: Dictionary = {}  # unit_id -> time remaining
 
 func _ready():
 	add_to_group("main")
+
+	var music = AudioStreamPlayer.new()
+	music.stream = preload("res://audio/dragon-studio-battle-music-316528.mp3")
+	add_child(music)
+	music.volume_db = -46.0
+	music.play()
 	
 	# Get all system references
 	_game_state = $GameState
