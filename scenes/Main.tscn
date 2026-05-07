@@ -16,8 +16,8 @@
 [ext_resource type="Script" uid="uid://cja0lb1ct8j2m" path="res://scripts/ui/UIController.gd" id="12_ui_ctrl"]
 [ext_resource type="Texture2D" uid="uid://clgurd5ic18v7" path="res://sprites/Towers/player_tower.png" id="15_cvmbd"]
 [ext_resource type="Texture2D" uid="uid://bfw1d5kil55hr" path="res://sprites/Towers/enemy_tower.png" id="16_cvmbd"]
-[ext_resource type="Script" uid="uid://dg0s4yvjl90s" path="res://scripts/systems/BackgroundScroller.gd" id="17_bg_scroller"]
-[ext_resource type="Script" uid="uid://clmqn7pyajdo" path="res://scripts/ui/BattleScrollbar.gd" id="18_battle_scrollbar"]
+[ext_resource type="Script" path="res://scripts/systems/BackgroundScroller.gd" id="17_bg_scroller"]
+[ext_resource type="Script" path="res://scripts/ui/BattleScrollbar.gd" id="18_battle_scrollbar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(100, 300)
@@ -49,7 +49,7 @@ script = ExtResource("11_worker_sys")
 [node name="UIController" type="Node" parent="." unique_id=4444444]
 script = ExtResource("12_ui_ctrl")
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1404405891]
 
 [node name="BattleScrollbar" type="Control" parent="UILayer" unique_id=5050505]
 layout_mode = 3
@@ -63,7 +63,6 @@ script = ExtResource("18_battle_scrollbar")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1213784102]
 texture_repeat = 3
-position = Vector2(0, 0)
 scale = Vector2(0.81, 0.81)
 texture = ExtResource("10_cvmbd")
 region_rect = Rect2(0, 0, 4000, 720)
@@ -112,6 +111,7 @@ shape = SubResource("RectangleShape2D_0wfyh")
 debug_color = Color(0.8786287, 0.79336745, 1.1551381e-06, 1)
 
 [node name="Label" type="Label" parent="PlayerBase" unique_id=683897676]
+visible = false
 offset_left = -45.0
 offset_top = 49.0
 offset_right = 45.0
@@ -122,6 +122,15 @@ text = "Player Base"
 position = Vector2(3, -135)
 scale = Vector2(0.38, 0.38)
 texture = ExtResource("15_cvmbd")
+
+[node name="HealthBar" type="ProgressBar" parent="PlayerBase" unique_id=590185979]
+offset_left = -70.0
+offset_top = 70.0
+offset_right = 50.0
+offset_bottom = 78.0
+max_value = 500.0
+value = 500.0
+show_percentage = false
 
 [node name="EnemyBase" type="CharacterBody2D" parent="." unique_id=1945911551]
 position = Vector2(1140, 500)
@@ -134,6 +143,7 @@ shape = SubResource("RectangleShape2D_0wfyh")
 debug_color = Color(0.67849773, 0.14925322, 0.12010615, 1)
 
 [node name="Label" type="Label" parent="EnemyBase" unique_id=976460746]
+visible = false
 offset_left = -45.0
 offset_top = 49.0
 offset_right = 45.0
@@ -144,6 +154,15 @@ text = "Enemy Base"
 position = Vector2(4, -126)
 scale = Vector2(0.38, 0.38)
 texture = ExtResource("16_cvmbd")
+
+[node name="HealthBar" type="ProgressBar" parent="EnemyBase" unique_id=2115770441]
+offset_left = -25.0
+offset_top = 70.0
+offset_right = 95.0
+offset_bottom = 78.0
+max_value = 500.0
+value = 500.0
+show_percentage = false
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1727116174]
 
