@@ -36,6 +36,13 @@ func _ready() -> void:
 	_build_ui()
 	hide()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if event.is_action_pressed("ui_cancel"):
+		close()
+		get_viewport().set_input_as_handled()
+
 func _build_ui() -> void:
 	var root := Control.new()
 	add_child(root)
@@ -104,6 +111,13 @@ func _build_ui() -> void:
 	resume_btn.pressed.connect(_on_resume_pressed)
 	_buttons.append(resume_btn)
 	vbox.add_child(resume_btn)
+
+	_add_spacer(vbox, SPACER_BUTTON_GAP)
+
+	var restart_btn := _make_button("↻   RESTART", C_PANEL, C_ASH)
+	restart_btn.pressed.connect(_on_restart_pressed)
+	_buttons.append(restart_btn)
+	vbox.add_child(restart_btn)
 
 	_add_spacer(vbox, SPACER_BUTTON_GAP)
 
@@ -212,6 +226,10 @@ func _add_spacer(parent: Control, height: int) -> void:
 
 func _on_resume_pressed() -> void:
 	close()
+
+func _on_restart_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 func _on_main_menu_pressed() -> void:
 	get_tree().paused = false
