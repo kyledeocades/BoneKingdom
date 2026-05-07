@@ -22,12 +22,7 @@ func _ready() -> void:
 	_build_ui()
 
 	var music = AudioStreamPlayer.new()
-	music.stream = preload("res://audio/mondamusic-retro-arcade-game-music-512837.mp3")
-	add_child(music)
-	music.volume_db = -46.0
-	music.play()
-
-func _build_ui() -> void:
+		music.stream = preload("res://data/audio/music/mondamusic-retro-arcade-game-music-512837.mp3")
 	# ── Deep background ──────────────────────────────────────────────────────
 	var bg := ColorRect.new()
 	bg.color = C_BG

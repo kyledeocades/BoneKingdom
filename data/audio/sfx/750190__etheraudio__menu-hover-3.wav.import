@@ -7,7 +7,7 @@ path="res://.godot/imported/750190__etheraudio__menu-hover-3.wav-3ee851af73b161c
 
 [deps]
 
-source_file="res://audio/750190__etheraudio__menu-hover-3.wav"
+source_file="res://data/audio/sfx/750190__etheraudio__menu-hover-3.wav"
 dest_files=["res://.godot/imported/750190__etheraudio__menu-hover-3.wav-3ee851af73b161c894d0b6da0e7a1f22.sample"]
 
 [params]

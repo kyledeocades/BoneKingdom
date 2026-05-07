@@ -7,7 +7,7 @@ path="res://.godot/imported/649543__ajanhallinta__ouch.wav-561aa50e8e6c1421aceae
 
 [deps]
 
-source_file="res://audio/649543__ajanhallinta__ouch.wav"
+source_file="res://data/audio/sfx/649543__ajanhallinta__ouch.wav"
 dest_files=["res://.godot/imported/649543__ajanhallinta__ouch.wav-561aa50e8e6c1421aceae674a5d89044.sample"]
 
 [params]

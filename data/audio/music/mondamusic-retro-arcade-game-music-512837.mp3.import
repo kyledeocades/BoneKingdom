@@ -7,7 +7,7 @@ path="res://.godot/imported/mondamusic-retro-arcade-game-music-512837.mp3-926afd
 
 [deps]
 
-source_file="res://audio/mondamusic-retro-arcade-game-music-512837.mp3"
+source_file="res://data/audio/music/mondamusic-retro-arcade-game-music-512837.mp3"
 dest_files=["res://.godot/imported/mondamusic-retro-arcade-game-music-512837.mp3-926afd97b983f037d83f4742ab55077a.mp3str"]
 
 [params]

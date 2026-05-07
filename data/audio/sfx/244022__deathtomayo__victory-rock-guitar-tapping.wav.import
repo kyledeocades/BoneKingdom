@@ -7,7 +7,7 @@ path="res://.godot/imported/244022__deathtomayo__victory-rock-guitar-tapping.wav
 
 [deps]
 
-source_file="res://audio/244022__deathtomayo__victory-rock-guitar-tapping.wav"
+source_file="res://data/audio/sfx/244022__deathtomayo__victory-rock-guitar-tapping.wav"
 dest_files=["res://.godot/imported/244022__deathtomayo__victory-rock-guitar-tapping.wav-eaa35ff870994ee91b0a98364edffab1.sample"]
 
 [params]

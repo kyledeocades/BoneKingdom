@@ -7,7 +7,7 @@ path="res://.godot/imported/511490__lydmakeren__fx_bowarrow.wav-fdf539a3c2c137b5
 
 [deps]
 
-source_file="res://audio/511490__lydmakeren__fx_bowarrow.wav"
+source_file="res://data/audio/sfx/511490__lydmakeren__fx_bowarrow.wav"
 dest_files=["res://.godot/imported/511490__lydmakeren__fx_bowarrow.wav-fdf539a3c2c137b589013771909ea283.sample"]
 
 [params]

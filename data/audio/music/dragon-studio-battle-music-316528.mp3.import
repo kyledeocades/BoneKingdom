@@ -7,7 +7,7 @@ path="res://.godot/imported/dragon-studio-battle-music-316528.mp3-077b3beb019286
 
 [deps]
 
-source_file="res://audio/dragon-studio-battle-music-316528.mp3"
+source_file="res://data/audio/music/dragon-studio-battle-music-316528.mp3"
 dest_files=["res://.godot/imported/dragon-studio-battle-music-316528.mp3-077b3beb019286e1e93302908b99728a.mp3str"]
 
 [params]

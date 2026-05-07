@@ -50,12 +50,7 @@ func take_damage(amount: int) -> void:
 
 	#Damage sound
 	var damage_sfx = AudioStreamPlayer.new()
-	damage_sfx.stream = preload("res://audio/458867__raclure__damage-sound-effect.mp3")
-	damage_sfx.volume_db = -60.0
-	add_child(damage_sfx)
-	damage_sfx.play()
-	
-	if current_health < 0:
+		damage_sfx.stream = preload("res://data/audio/sfx/458867__raclure__damage-sound-effect.mp3")
 		current_health = 0
 	
 	health_changed.emit(current_health, max_health)

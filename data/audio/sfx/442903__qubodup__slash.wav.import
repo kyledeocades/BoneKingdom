@@ -7,7 +7,7 @@ path="res://.godot/imported/442903__qubodup__slash.wav-35d7c33dfa717ed4b397fd0c2
 
 [deps]
 
-source_file="res://audio/442903__qubodup__slash.wav"
+source_file="res://data/audio/sfx/442903__qubodup__slash.wav"
 dest_files=["res://.godot/imported/442903__qubodup__slash.wav-35d7c33dfa717ed4b397fd0c26f93f81.sample"]
 
 [params]

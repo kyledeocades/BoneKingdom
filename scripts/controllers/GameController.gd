@@ -34,11 +34,7 @@ func _ready():
 	add_to_group("main")
 
 	_music = AudioStreamPlayer.new()
-	_music.stream = preload("res://audio/dragon-studio-battle-music-316528.mp3")
-	add_child(_music)
-	_music.volume_db = -22.0
-	_music.play()
-	
+		_music.stream = preload("res://data/audio/music/dragon-studio-battle-music-316528.mp3")
 	# Get all system references
 	_game_state = $GameState
 	_event_bus = $GameEventBus

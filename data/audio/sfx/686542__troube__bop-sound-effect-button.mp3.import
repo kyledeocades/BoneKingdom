@@ -7,7 +7,7 @@ path="res://.godot/imported/686542__troube__bop-sound-effect-button.mp3-24f7cbc4
 
 [deps]
 
-source_file="res://audio/686542__troube__bop-sound-effect-button.mp3"
+source_file="res://data/audio/sfx/686542__troube__bop-sound-effect-button.mp3"
 dest_files=["res://.godot/imported/686542__troube__bop-sound-effect-button.mp3-24f7cbc48ce14e94563142e2e4df4be1.mp3str"]
 
 [params]
