@@ -64,10 +64,10 @@ func _ready():
 	_spawn_manager.set_resource_rate(_stage_config.resource_rate)
 	
 	# Setup UI with allowed units from stage
-	print("DEBUG: Building spawn buttons...")
-	print("DEBUG: Starting bones: ", _game_state.bones)
+	#print("DEBUG: Building spawn buttons...")
+	#print("DEBUG: Starting bones: ", _game_state.bones)
 	var units = _unit_catalog.get_player_spawn_units()
-	print("DEBUG: Available player units: ", units.size())
+	#print("DEBUG: Available player units: ", units.size())
 	for u in units:
 		print("  - ", u.unit_id, " (cost: ", u.cost, ")")
 	_ui_controller.build_spawn_buttons(_on_player_spawn_button_pressed)
