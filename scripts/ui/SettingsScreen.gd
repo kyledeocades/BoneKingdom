@@ -148,8 +148,8 @@ func _make_volume_control(label_text: String, slider: HSlider, container: Contai
 	vbox.add_child(hbox)
 	
 	# Configure slider
-	slider.min_value = -40
-	slider.max_value = 5
+	slider.min_value = 0
+	slider.max_value = 100
 	slider.step = 1
 	slider.custom_minimum_size = Vector2(280, 0)
 	hbox.add_child(slider)
@@ -165,20 +165,19 @@ func _make_volume_control(label_text: String, slider: HSlider, container: Contai
 	
 	# Update percentage when slider changes
 	slider.value_changed.connect(func(val):
-		if val <= -40:
+		if val <= 0:
 			percent_label.text = "MUTE"
 		else:
-			# Convert dB to linear amplitude (logarithmic perception)
-			var linear_amplitude = pow(10.0, val / 20.0)
+			# Normalize slider to 0-1 range
+			var norm = val / 100.0
 			
-			# Map logarithmic range: 10^(-40/20) to 10^(5/20) -> 0% to 125%
-			var min_amplitude = pow(10.0, -40.0 / 20.0)  # ~0.01
-			var max_amplitude = pow(10.0, 5.0 / 20.0)    # ~1.778
+			# Apply logarithmic curve (quadratic for good feel)
+			var log_norm = pow(norm, 1.5)
 			
-			var percent = ((linear_amplitude - min_amplitude) / (max_amplitude - min_amplitude)) * 125.0
-			percent = clamp(percent, 0.0, 125.0)
+			# Map to display percentage (0-125%)
+			var percent = log_norm * 125.0
 			
-			# Snap to 100% if within 5% of it
+			# Snap to 100% if within 5%
 			if abs(percent - 100.0) < 5.0:
 				percent = 100.0
 			
@@ -226,30 +225,70 @@ func _load_volume_settings() -> void:
 	var sfx_index = AudioServer.get_bus_index(SFX_BUS)
 	
 	if master_index >= 0:
-		_master_slider.value = AudioServer.get_bus_volume_db(master_index)
-		_update_percent_label(_master_slider.value, _master_percent_label)
+		var db = AudioServer.get_bus_volume_db(master_index)
+		_master_slider.value = _db_to_slider_value(db)
+		_update_percent_label(db, _master_percent_label)
 	if music_index >= 0:
-		_music_slider.value = AudioServer.get_bus_volume_db(music_index)
-		_update_percent_label(_music_slider.value, _music_percent_label)
+		var db = AudioServer.get_bus_volume_db(music_index)
+		_music_slider.value = _db_to_slider_value(db)
+		_update_percent_label(db, _music_percent_label)
 	if sfx_index >= 0:
-		_sfx_slider.value = AudioServer.get_bus_volume_db(sfx_index)
-		_update_percent_label(_sfx_slider.value, _sfx_percent_label)
+		var db = AudioServer.get_bus_volume_db(sfx_index)
+		_sfx_slider.value = _db_to_slider_value(db)
+		_update_percent_label(db, _sfx_percent_label)
 
 func _update_percent_label(db: float, label: Label) -> void:
-	var db_to_percent = pow(10.0, db / 20.0) * 100
-	label.text = "%d%%" % int(db_to_percent)
+	if db <= -80:
+		label.text = "MUTE"
+	else:
+		# Find the slider position that gives this dB value
+		var linear_amp = pow(10.0, db / 20.0)
+		var max_amp = pow(10.0, 5.0 / 20.0)
+		var norm = linear_amp / max_amp
+		var log_norm = pow(norm, 1.0 / 1.5)
+		var percent = log_norm * 125.0
+		
+		if abs(percent - 100.0) < 5.0:
+			percent = 100.0
+		
+		label.text = "%d%%" % int(clamp(percent, 0.0, 125.0))
+
+func _slider_value_to_db(slider_value: float) -> float:
+	if slider_value <= 0:
+		return -80.0  # Mute
+	
+	# Normalize slider to 0-1 range
+	var norm = slider_value / 100.0
+	
+	# Apply logarithmic curve (quadratic for good feel)
+	var log_norm = pow(norm, 1.5)
+	
+	# Map to dB range: -40 to 5
+	return -40.0 + log_norm * 45.0
+
+func _db_to_slider_value(db: float) -> float:
+	if db <= -80:
+		return 0.0
+	
+	# Reverse the logarithmic mapping
+	var log_norm = (db + 40.0) / 45.0
+	var norm = pow(log_norm, 1.0 / 1.5)
+	return clamp(norm * 100.0, 0.0, 100.0)
 
 func _on_master_volume_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MASTER_BUS), value)
-	_update_percent_label(value, _master_percent_label)
+	var db = _slider_value_to_db(value)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MASTER_BUS), db)
+	_update_percent_label(db, _master_percent_label)
 
 func _on_music_volume_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS), value)
-	_update_percent_label(value, _music_percent_label)
+	var db = _slider_value_to_db(value)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS), db)
+	_update_percent_label(db, _music_percent_label)
 
 func _on_sfx_volume_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(SFX_BUS), value)
-	_update_percent_label(value, _sfx_percent_label)
+	var db = _slider_value_to_db(value)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(SFX_BUS), db)
+	_update_percent_label(db, _sfx_percent_label)
 
 func open() -> void:
 	show()
