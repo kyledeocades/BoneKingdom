@@ -226,3 +226,18 @@ func _on_game_ended(result: String) -> void:
 	if result_label != null:
 		result_label.text = result
 		result_label.visible = true
+
+
+		if result == "YOU WIN":
+			var victory_sfx = AudioStreamPlayer.new()
+			victory_sfx.stream = preload("res://audio/244022__deathtomayo__victory-rock-guitar-tapping.wav")
+			victory_sfx.volume_db = -55.0
+			add_child(victory_sfx)
+			victory_sfx.play()
+			
+		elif result == "YOU LOSE":
+			var defeat_sfx = AudioStreamPlayer.new()
+			defeat_sfx.stream = preload("res://audio/171673__leszek_szary__failure-1.wav")
+			defeat_sfx.volume_db = -50.0
+			add_child(defeat_sfx)
+			defeat_sfx.play()
