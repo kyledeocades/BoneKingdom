@@ -241,7 +241,7 @@ func _on_game_ended(result: String) -> void:
 			victory_sfx.stream = load("res://data/audio/sfx/244022__deathtomayo__victory-rock-guitar-tapping.wav")
 			victory_sfx.bus = "SFX"
 			victory_sfx.volume_db = -28.0
-			victory_sfx.max_distance = 1500.0
+			victory_sfx.max_distance = 3000.0
 			victory_sfx.attenuation = 2  # Logarithmic attenuation
 			victory_sfx.global_position = get_viewport().get_camera_2d().global_position
 			add_child(victory_sfx)
@@ -255,7 +255,7 @@ func _on_game_ended(result: String) -> void:
 			defeat_sfx.stream = load("res://data/audio/sfx/171673__leszek_szary__failure-1.wav")
 			defeat_sfx.bus = "SFX"
 			defeat_sfx.volume_db = -23.0
-			defeat_sfx.max_distance = 1500.0
+			defeat_sfx.max_distance = 3000.0
 			defeat_sfx.attenuation = 2  # Logarithmic attenuation
 			defeat_sfx.global_position = get_viewport().get_camera_2d().global_position
 			add_child(defeat_sfx)

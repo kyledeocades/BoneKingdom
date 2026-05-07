@@ -100,7 +100,7 @@ func _play_attack_sound() -> void:
 	
 	attack_sfx.bus = "SFX"
 	attack_sfx.volume_db = -5.0
-	attack_sfx.max_distance = 1000.0  # Sound inaudible beyond 1000 pixels
+	attack_sfx.max_distance = 2200.0  # Sound inaudible beyond 2200 pixels
 	attack_sfx.attenuation = 2  # Logarithmic attenuation
 	attack_sfx.global_position = global_position
 	add_child(attack_sfx)
