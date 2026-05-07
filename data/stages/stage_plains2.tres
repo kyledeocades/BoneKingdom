@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_stage_config")
-stage_id = "plains"
+stage_id = "plains2"
 stage_name = "Fertile Plains - 2"
 is_available = true
 base_distance = 2000.0
