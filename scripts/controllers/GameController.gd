@@ -20,6 +20,9 @@ var _enemy_spawn_timer: Timer
 var _pause_menu: PauseMenu
 var _result_overlay: GameResultOverlay
 
+# Track cooldowns for each unit type
+var _unit_cooldowns: Dictionary = {}  # unit_id -> time remaining
+
 func _ready():
 	add_to_group("main")
 	
@@ -60,9 +63,15 @@ func _ready():
 	# Emit game started
 	_event_bus.game_started.emit()
 
-func _process(_delta):
+func _process(delta):
 	if _game_state.game_over:
 		return
+	
+	# Update cooldowns
+	for unit_id in _unit_cooldowns.keys():
+		_unit_cooldowns[unit_id] -= delta
+		if _unit_cooldowns[unit_id] <= 0:
+			_unit_cooldowns.erase(unit_id)
 	
 	check_win_loss_condition()
 
@@ -98,6 +107,10 @@ func _on_player_spawn_button_pressed(unit_id: String) -> void:
 	if _game_state.game_over:
 		return
 	
+	# Check if unit is on cooldown
+	if _unit_cooldowns.has(unit_id):
+		return
+	
 	var stats = _unit_catalog.get_stats(unit_id)
 	if stats == null:
 		return
@@ -106,6 +119,9 @@ func _on_player_spawn_button_pressed(unit_id: String) -> void:
 		return
 	
 	_spawn_manager.spawn_player_unit(unit_id)
+	
+	# Start cooldown
+	_unit_cooldowns[unit_id] = stats.spawn_cooldown
 
 ## Handle bone earning for enemies and players
 func _on_bones_earned(amount: int, team: String) -> void:
@@ -216,3 +232,7 @@ func add_bones(amount: int) -> void:
 
 func add_enemy_bones(amount: int) -> void:
 	_game_state.add_enemy_bones(amount)
+
+## Get remaining cooldown for a unit type
+func get_unit_cooldown(unit_id: String) -> float:
+	return _unit_cooldowns.get(unit_id, 0.0)
