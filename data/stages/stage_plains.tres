@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StageConfig" load_steps=2 format=3 uid="uid://cno5yw71x7kqa"]
+
+[ext_resource type="Script" uid="uid://dtevsh6rqd6ml" path="res://scripts/managers/StageConfig.gd" id="1_stage_config"]
+
+[resource]
+script = ExtResource("1_stage_config")
+stage_id = "plains"
+stage_name = "Plains Stage"
+base_distance = 1800.0
+mine_distance = 350.0
+allowed_player_units = []
+allowed_enemy_units = []
+starting_resources = 600
+resource_rate = 2.0
+background_path = "res://data/backgrounds/bg_plains.jpg"
