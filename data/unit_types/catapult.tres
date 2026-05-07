@@ -15,3 +15,4 @@ attack_range = 120.0
 attack_cooldown = 1.5
 sort_order = 40
 sprite_resource = "res://data/sprites/archer/archer_frames.tres"
+attack_sound = "res://data/audio/sfx/511490__lydmakeren__fx_bowarrow.wav"

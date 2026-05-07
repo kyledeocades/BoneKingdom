@@ -29,11 +29,17 @@ const BUTTON_HEIGHT = 54
 
 var _panel: PanelContainer
 var _buttons: Array[Button] = []
+var _settings_screen: SettingsScreen
 
 func _ready() -> void:
 	layer = 10
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_ui()
+	
+	# Create settings screen
+	_settings_screen = SettingsScreen.new()
+	add_child(_settings_screen)
+	
 	hide()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -118,6 +124,13 @@ func _build_ui() -> void:
 	restart_btn.pressed.connect(_on_restart_pressed)
 	_buttons.append(restart_btn)
 	vbox.add_child(restart_btn)
+
+	_add_spacer(vbox, SPACER_BUTTON_GAP)
+
+	var settings_btn := _make_button("⚙   SETTINGS", C_PANEL, C_ASH)
+	settings_btn.pressed.connect(_on_settings_pressed)
+	_buttons.append(settings_btn)
+	vbox.add_child(settings_btn)
 
 	_add_spacer(vbox, SPACER_BUTTON_GAP)
 
@@ -230,6 +243,9 @@ func _on_resume_pressed() -> void:
 func _on_restart_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+func _on_settings_pressed() -> void:
+	_settings_screen.open()
 
 func _on_main_menu_pressed() -> void:
 	get_tree().paused = false

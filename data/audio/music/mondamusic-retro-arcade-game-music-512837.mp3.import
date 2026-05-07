@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://ddmmc66hguk7s"
-path="res://.godot/imported/mondamusic-retro-arcade-game-music-512837.mp3-926afd97b983f037d83f4742ab55077a.mp3str"
+path="res://.godot/imported/mondamusic-retro-arcade-game-music-512837.mp3-e88fd4f7d37e255e2b8ab7e571c04a0d.mp3str"
 
 [deps]
 
 source_file="res://data/audio/music/mondamusic-retro-arcade-game-music-512837.mp3"
-dest_files=["res://.godot/imported/mondamusic-retro-arcade-game-music-512837.mp3-926afd97b983f037d83f4742ab55077a.mp3str"]
+dest_files=["res://.godot/imported/mondamusic-retro-arcade-game-music-512837.mp3-e88fd4f7d37e255e2b8ab7e571c04a0d.mp3str"]
 
 [params]
 

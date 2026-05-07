@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bruure3og0ucs"
-path="res://.godot/imported/649543__ajanhallinta__ouch.wav-561aa50e8e6c1421aceae674a5d89044.sample"
+path="res://.godot/imported/649543__ajanhallinta__ouch.wav-6479d38e976ddb60ee7c0c155758bb36.sample"
 
 [deps]
 
 source_file="res://data/audio/sfx/649543__ajanhallinta__ouch.wav"
-dest_files=["res://.godot/imported/649543__ajanhallinta__ouch.wav-561aa50e8e6c1421aceae674a5d89044.sample"]
+dest_files=["res://.godot/imported/649543__ajanhallinta__ouch.wav-6479d38e976ddb60ee7c0c155758bb36.sample"]
 
 [params]
 

@@ -14,3 +14,4 @@ move_speed = 35.0
 attack_range = 35.0
 attack_cooldown = 1.2
 sort_order = 30
+attack_sound = "res://data/audio/sfx/442903__qubodup__slash.wav"

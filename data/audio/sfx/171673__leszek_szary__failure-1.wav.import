@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://14yask76f6b6"
-path="res://.godot/imported/171673__leszek_szary__failure-1.wav-328ca8a66399b3136cad5a86a035d786.sample"
+path="res://.godot/imported/171673__leszek_szary__failure-1.wav-91840851e5d8f975274b8cf422b474d2.sample"
 
 [deps]
 
 source_file="res://data/audio/sfx/171673__leszek_szary__failure-1.wav"
-dest_files=["res://.godot/imported/171673__leszek_szary__failure-1.wav-328ca8a66399b3136cad5a86a035d786.sample"]
+dest_files=["res://.godot/imported/171673__leszek_szary__failure-1.wav-91840851e5d8f975274b8cf422b474d2.sample"]
 
 [params]
 

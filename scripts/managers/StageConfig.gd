@@ -48,6 +48,10 @@ class_name StageConfig
 ## Path to background texture for this stage
 @export var background_path: String = "res://data/backgrounds/bg_underworld.png"
 
+# ── Audio ────────────────────────────────────────────────────────────────
+## Path to music file for this stage
+@export var music_path: String = "res://data/audio/music/dragon-studio-battle-music-316528.mp3"
+
 
 # ── Helper: Get resolved unit lists ─────────────────────────────────────────
 func get_allowed_player_units_resolved() -> Array[String]:

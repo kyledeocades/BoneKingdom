@@ -72,6 +72,7 @@ func apply_unit_stats(unit: Node, stats, team: String) -> void:
 	unit.attack_range = stats.attack_range
 	unit.attack_cooldown = stats.attack_cooldown
 	unit.is_worker = stats.is_worker
+	unit.unit_stats = stats  # Store stats reference for later access
 	
 	# Apply team-specific resource rate
 	var resource_rate = _player_resource_rate if team == "player" else _enemy_resource_rate

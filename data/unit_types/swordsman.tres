@@ -13,3 +13,4 @@ move_speed = 55.0
 attack_range = 35.0
 sort_order = 20
 sprite_resource = "res://data/sprites/spearman/spearman_frames.tres"
+attack_sound = "res://data/audio/sfx/442903__qubodup__slash.wav"

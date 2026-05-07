@@ -22,6 +22,7 @@ var current_health: int
 var attack_timer: float = 0.0
 var gather_timer: float = 0.0
 var carrying_bones: bool = false
+var unit_stats: Resource = null  # Reference to UnitStats for this unit
 
 @onready var info_label = get_node_or_null("Label")
 @onready var health_bar: ProgressBar = get_node_or_null("HealthBar")
@@ -47,17 +48,27 @@ func process_unit(_delta: float) -> void:
 
 func take_damage(amount: int) -> void:
 	current_health -= amount
-
-	#Damage sound
-	var damage_sfx = AudioStreamPlayer.new()
-		damage_sfx.stream = preload("res://data/audio/sfx/458867__raclure__damage-sound-effect.mp3")
-		current_health = 0
+	
+	# Play damage sound
+	_play_damage_sound()
 	
 	health_changed.emit(current_health, max_health)
 	update_label()
 	
 	if current_health <= 0:
 		die()
+
+func _play_damage_sound() -> void:
+	var damage_sfx = AudioStreamPlayer.new()
+	damage_sfx.stream = load("res://data/audio/sfx/458867__raclure__damage-sound-effect.mp3")
+	if damage_sfx.stream == null:
+		return
+	damage_sfx.bus = "SFX"
+	damage_sfx.volume_db = -60.0
+	add_child(damage_sfx)
+	damage_sfx.play()
+	await damage_sfx.finished
+	damage_sfx.queue_free()
 
 func update_label() -> void:
 	if info_label != null:

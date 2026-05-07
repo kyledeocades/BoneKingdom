@@ -17,3 +17,4 @@ player_resource_rate = 2.0
 enemy_resource_rate = 2.0
 enemy_ai_mode = "economical"
 background_path = "res://data/backgrounds/bg_plains.jpg"
+music_path = "res://data/audio/music/dragon-studio-battle-music-316528.mp3"

@@ -33,8 +33,6 @@ var _unit_cooldowns: Dictionary = {}  # unit_id -> time remaining
 func _ready():
 	add_to_group("main")
 
-	_music = AudioStreamPlayer.new()
-		_music.stream = preload("res://data/audio/music/dragon-studio-battle-music-316528.mp3")
 	# Get all system references
 	_game_state = $GameState
 	_event_bus = $GameEventBus
@@ -68,6 +66,9 @@ func _ready():
 	
 	# Initialize game state with stage-specific resources
 	_game_state.starting_bones = _stage_config.starting_player_resources
+	
+	# Setup music from stage config
+	_setup_music(_stage_config.music_path)
 	_game_state.starting_enemy_bones = _stage_config.starting_enemy_resources
 	_game_state.bones = _stage_config.starting_player_resources
 	_game_state.enemy_bones = _stage_config.starting_enemy_resources
@@ -118,6 +119,19 @@ func _setup_overlays() -> void:
 	
 	_result_overlay = ResultOverlayScript.new()
 	add_child(_result_overlay)
+
+## Setup music from stage config
+func _setup_music(music_path: String) -> void:
+	_music = AudioStreamPlayer.new()
+	_music.stream = load(music_path)
+	if _music.stream == null:
+		push_warning("Failed to load music: %s" % music_path)
+		return
+	
+	_music.bus = "Music"
+	_music.volume_db = -22.0
+	add_child(_music)
+	_music.play()
 
 ## ESC key toggles pause menu (but not once game is over)
 ## Ctrl+Shift+B adds 500 bones (debug cheat)

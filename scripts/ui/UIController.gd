@@ -233,7 +233,8 @@ func _on_game_ended(result: String) -> void:
 			if main and main._music:
 				main._music.stop()
 			var victory_sfx = AudioStreamPlayer.new()
-			victory_sfx.stream = preload("res://data/audio/sfx/244022__deathtomayo__victory-rock-guitar-tapping.wav")
+			victory_sfx.stream = load("res://data/audio/sfx/244022__deathtomayo__victory-rock-guitar-tapping.wav")
+			victory_sfx.bus = "SFX"
 			victory_sfx.volume_db = -55.0
 			add_child(victory_sfx)
 			victory_sfx.play()
@@ -243,7 +244,8 @@ func _on_game_ended(result: String) -> void:
 			if main and main._music:
 				main._music.stop()
 			var defeat_sfx = AudioStreamPlayer.new()
-			defeat_sfx.stream = preload("res://data/audio/sfx/171673__leszek_szary__failure-1.wav")
+			defeat_sfx.stream = load("res://data/audio/sfx/171673__leszek_szary__failure-1.wav")
+			defeat_sfx.bus = "SFX"
 			defeat_sfx.volume_db = -50.0
 			add_child(defeat_sfx)
 			defeat_sfx.play()

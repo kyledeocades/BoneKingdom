@@ -14,3 +14,4 @@ attack_range = 0.0
 is_worker = true
 gather_rate = 15
 sort_order = 10
+attack_sound = ""

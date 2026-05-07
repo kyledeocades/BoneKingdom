@@ -52,10 +52,14 @@ func process_unit(delta: float) -> void:
 			var attack_anim = "Attack" + str(rng.randi_range(1,3))
 			animated_sprite.play(attack_anim)
 			attack_timer = attack_cooldown
+			
+			# Play attack sound from unit stats
+			_play_attack_sound()
 
-			#Attack sound
-			var slash_sfx = AudioStreamPlayer.new()
-				slash_sfx.stream = preload("res://data/audio/sfx/442903__qubodup__slash.wav")
+## Find target using priority: nearest enemy unit → enemy mine → enemy base
+func find_target() -> Node:
+	var main = get_tree().get_first_node_in_group("main")
+	
 	# 1. Nearest enemy unit
 	var closest_unit = _unit_manager.get_nearest_enemy_to(self)
 	if closest_unit != null:
@@ -76,7 +80,7 @@ func process_unit(delta: float) -> void:
 			return enemy_base
  
 	return null
- 
+
 ## Mine is a valid target only if tier > 1 and not depleted
 func _mine_is_worth_attacking(mine: Node) -> bool:
 	if mine.is_depleted:
@@ -84,3 +88,19 @@ func _mine_is_worth_attacking(mine: Node) -> bool:
 	if mine.current_tier <= 1:
 		return false
 	return true
+
+func _play_attack_sound() -> void:
+	if unit_stats == null or unit_stats.attack_sound == "":
+		return
+	
+	var attack_sfx = AudioStreamPlayer.new()
+	attack_sfx.stream = load(unit_stats.attack_sound)
+	if attack_sfx.stream == null:
+		return
+	
+	attack_sfx.bus = "SFX"
+	attack_sfx.volume_db = -28.0
+	add_child(attack_sfx)
+	attack_sfx.play()
+	await attack_sfx.finished
+	attack_sfx.queue_free()

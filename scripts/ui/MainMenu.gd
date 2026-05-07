@@ -17,12 +17,25 @@ const C_CRIMSON := Color("#8B1A1A")
 const C_ASH     := Color("#5A4E3A")
 const C_PANEL   := Color("#16100A")
 
+var _settings_screen: SettingsScreen
+
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_build_ui()
 
+	# Setup menu music
 	var music = AudioStreamPlayer.new()
-		music.stream = preload("res://data/audio/music/mondamusic-retro-arcade-game-music-512837.mp3")
+	music.stream = load("res://data/audio/music/mondamusic-retro-arcade-game-music-512837.mp3")
+	if music.stream != null:
+		music.bus = "Music"
+		music.volume_db = -46.0
+		add_child(music)
+		music.play()
+	
+	# Create settings screen
+	_settings_screen = SettingsScreen.new()
+	add_child(_settings_screen)
+
 	# ── Deep background ──────────────────────────────────────────────────────
 	var bg := ColorRect.new()
 	bg.color = C_BG
@@ -88,6 +101,13 @@ func _ready() -> void:
 	var play_btn := _make_button("⚔   PLAY", C_CRIMSON, C_BONE, true)
 	play_btn.pressed.connect(_on_play_pressed)
 	vbox.add_child(play_btn)
+
+	_add_spacer(vbox, 16)
+
+	# ── SETTINGS button ───────────────────────────────────────────────────────
+	var settings_btn := _make_button("⚙   SETTINGS", C_PANEL, C_ASH, false)
+	settings_btn.pressed.connect(_on_settings_pressed)
+	vbox.add_child(settings_btn)
 
 	_add_spacer(vbox, 16)
 
@@ -179,6 +199,9 @@ func _start_title_pulse(title: Label) -> void:
 func _on_play_pressed() -> void:
 	# Transition to stage select instead of overlaying
 	get_tree().change_scene_to_file("res://scenes/StageSelect.tscn")
+
+func _on_settings_pressed() -> void:
+	_settings_screen.open()
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

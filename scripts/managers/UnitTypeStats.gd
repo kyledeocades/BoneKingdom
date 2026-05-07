@@ -21,3 +21,6 @@ class_name UnitStats
 
 # Optional: path to a sprite resource (Texture2D or SpriteFrames)
 @export var sprite_resource: String = ""
+
+# Optional: path to attack sound effect (AudioStream)
+@export var attack_sound: String = ""
