@@ -31,8 +31,8 @@ func _ready() -> void:
 		if _menu_music.stream != null:
 			_menu_music.bus = "Music"
 			_menu_music.volume_db = -30.0
-			get_tree().root.add_child(_menu_music)
-			_menu_music.play()
+			get_tree().root.call_deferred("add_child", _menu_music)
+			_menu_music.call_deferred("play")
 	elif not _menu_music.playing:
 		_menu_music.play()
 	
