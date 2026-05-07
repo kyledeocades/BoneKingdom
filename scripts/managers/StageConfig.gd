@@ -24,13 +24,27 @@ class_name StageConfig
 @export var allowed_enemy_units: Array[String] = []
 
 # ── Economy & Pacing ────────────────────────────────────────────────────────
-## Initial bones both player and enemy start with
-@export var starting_resources: int = 500
+## Initial bones player starts with
+@export var starting_player_resources: int = 500
 
-## Multiplier on resource gathering rate (gather_rate of workers)
-@export var resource_rate: float = 1.0
+## Initial bones enemy starts with
+@export var starting_enemy_resources: int = 500
 
-# ── Visual Theme ────────────────────────────────────────────────────────────
+## Multiplier on player resource gathering rate (gather_rate of workers)
+@export var player_resource_rate: float = 1.0
+
+## Multiplier on enemy resource gathering rate
+@export var enemy_resource_rate: float = 1.0
+
+# ── AI Configuration ───────────────────────────────────────────────────────
+## Enemy AI behavior mode: "random", "smart", "aggressive", or "economical"
+## - "random": Picks cheapest worker (if low count), then random combat unit
+## - "smart": Uses dynamic timing, threat assessment, and composition strategy
+## - "aggressive": Spawns aggressively to control map territory and overwhelm player
+## - "economical": Focuses on strong economy, saves for large waves, reactive spawning
+@export var enemy_ai_mode: String = "random"
+
+# ── Visual Theme ────────────────────────────────────────────────────────────────
 ## Path to background texture for this stage
 @export var background_path: String = "res://data/backgrounds/bg_underworld.png"
 

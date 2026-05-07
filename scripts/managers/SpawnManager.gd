@@ -8,7 +8,8 @@ var _combat_unit_scene: PackedScene
 var _worker_unit_scene: PackedScene
 var _unit_catalog: Node
 var _event_bus: Node
-var _resource_rate: float = 1.0
+var _player_resource_rate: float = 1.0
+var _enemy_resource_rate: float = 1.0
 
 func _ready():
 	add_to_group("spawn_manager")
@@ -20,9 +21,17 @@ func _ready():
 	_event_bus = get_tree().get_first_node_in_group("game_event_bus")
 
 
-## Set resource gathering rate multiplier from stage config
+## Set player resource gathering rate multiplier from stage config
+func set_player_resource_rate(rate: float) -> void:
+	_player_resource_rate = rate
+
+## Set enemy resource gathering rate multiplier from stage config
+func set_enemy_resource_rate(rate: float) -> void:
+	_enemy_resource_rate = rate
+
+## Legacy: Set resource rate (applies to player for backward compatibility)
 func set_resource_rate(rate: float) -> void:
-	_resource_rate = rate
+	_player_resource_rate = rate
 
 
 ## Spawn a unit with stats applied - creates CombatUnit or WorkerUnit based on stats
@@ -63,7 +72,10 @@ func apply_unit_stats(unit: Node, stats, team: String) -> void:
 	unit.attack_range = stats.attack_range
 	unit.attack_cooldown = stats.attack_cooldown
 	unit.is_worker = stats.is_worker
-	unit.gather_rate = stats.gather_rate * _resource_rate
+	
+	# Apply team-specific resource rate
+	var resource_rate = _player_resource_rate if team == "player" else _enemy_resource_rate
+	unit.gather_rate = stats.gather_rate * resource_rate
 	unit.gather_cooldown = stats.gather_cooldown
 
 	apply_sprite_resource(unit, stats)

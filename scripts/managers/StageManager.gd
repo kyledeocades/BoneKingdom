@@ -171,8 +171,8 @@ func _apply_economy_settings(config: StageConfig) -> void:
 		return
 	
 	# Set starting resources
-	game_state.bones = config.starting_resources
-	game_state.enemy_bones = config.starting_resources
+	game_state.bones = config.starting_player_resources
+	game_state.enemy_bones = config.starting_enemy_resources
 	
 	# Store stage config reference in GameController for other systems to access
 	if _main_controller.has_meta("stage_config"):
@@ -208,8 +208,11 @@ func _create_default_stage(stage_id: String) -> StageConfig:
 	stage.stage_name = "Default Stage"
 	stage.base_distance = 2000.0
 	stage.mine_distance = 400.0
-	stage.starting_resources = 500
-	stage.resource_rate = 1.0
+	stage.starting_player_resources = 500
+	stage.starting_enemy_resources = 500
+	stage.player_resource_rate = 1.0
+	stage.enemy_resource_rate = 1.0
+	stage.enemy_ai_mode = "random"
 	stage.background_path = "res://data/backgrounds/bg_underworld.png"
 	print("StageManager: Created fallback default stage with base_distance=%f, mine_distance=%f" % [
 		stage.base_distance, stage.mine_distance

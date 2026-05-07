@@ -11,8 +11,11 @@ base_distance = 2000.0
 mine_distance = 400.0
 allowed_player_units = []
 allowed_enemy_units = []
-starting_resources = 500
-resource_rate = 1.0
+starting_player_resources = 500
+starting_enemy_resources = 500
+player_resource_rate = 1.0
+enemy_resource_rate = 1.0
+enemy_ai_mode = "random"
 background_path = "res://data/backgrounds/bg_underworld.png"
 
 
@@ -22,5 +25,8 @@ background_path = "res://data/backgrounds/bg_underworld.png"
 ##### i.e. base_distance - mine_distance is distance from the mine to center
 ### allowed_player_units are the amount of units the player can spawn, empty array means no restrictions
 ### allowed_enemy_units are the units that can spawn for the enemy, empty array means no restrictions
-### starting_resources is the amount of resources the player starts with at the beginning of the stage
-### resource_rate is the multiplier for how fast resources are generated at the mine, so 2.0 is 2x rate
+### starting_player_resources is the amount of resources the player starts with at the beginning of the stage
+### starting_enemy_resources is the amount of resources the enemy starts with at the beginning of the stage
+### player_resource_rate is the multiplier for how fast player resources are generated at the mine (2.0 is 2x rate)
+### enemy_resource_rate is the multiplier for how fast enemy resources are generated at the mine
+### enemy_ai_mode is the AI behavior: "random" or "smart"
