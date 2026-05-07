@@ -93,13 +93,16 @@ func _play_attack_sound() -> void:
 	if unit_stats == null or unit_stats.attack_sound == "":
 		return
 	
-	var attack_sfx = AudioStreamPlayer.new()
+	var attack_sfx = AudioStreamPlayer2D.new()
 	attack_sfx.stream = load(unit_stats.attack_sound)
 	if attack_sfx.stream == null:
 		return
 	
 	attack_sfx.bus = "SFX"
 	attack_sfx.volume_db = -28.0
+	attack_sfx.max_distance = 1000.0  # Sound inaudible beyond 1000 pixels
+	attack_sfx.attenuation = AudioStreamPlayer2D.ATTENUATION_LOGARITHMIC
+	attack_sfx.global_position = global_position
 	add_child(attack_sfx)
 	attack_sfx.play()
 	await attack_sfx.finished

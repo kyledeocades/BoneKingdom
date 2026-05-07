@@ -232,10 +232,13 @@ func _on_game_ended(result: String) -> void:
 			var main = get_tree().get_first_node_in_group("main")
 			if main and main._music:
 				main._music.stop()
-			var victory_sfx = AudioStreamPlayer.new()
+			var victory_sfx = AudioStreamPlayer2D.new()
 			victory_sfx.stream = load("res://data/audio/sfx/244022__deathtomayo__victory-rock-guitar-tapping.wav")
 			victory_sfx.bus = "SFX"
 			victory_sfx.volume_db = -55.0
+			victory_sfx.max_distance = 1500.0
+			victory_sfx.attenuation = AudioStreamPlayer2D.ATTENUATION_LOGARITHMIC
+			victory_sfx.global_position = get_viewport().get_camera_2d().global_position
 			add_child(victory_sfx)
 			victory_sfx.play()
 			
@@ -243,9 +246,12 @@ func _on_game_ended(result: String) -> void:
 			var main = get_tree().get_first_node_in_group("main")
 			if main and main._music:
 				main._music.stop()
-			var defeat_sfx = AudioStreamPlayer.new()
+			var defeat_sfx = AudioStreamPlayer2D.new()
 			defeat_sfx.stream = load("res://data/audio/sfx/171673__leszek_szary__failure-1.wav")
 			defeat_sfx.bus = "SFX"
 			defeat_sfx.volume_db = -50.0
+			defeat_sfx.max_distance = 1500.0
+			defeat_sfx.attenuation = AudioStreamPlayer2D.ATTENUATION_LOGARITHMIC
+			defeat_sfx.global_position = get_viewport().get_camera_2d().global_position
 			add_child(defeat_sfx)
 			defeat_sfx.play()
