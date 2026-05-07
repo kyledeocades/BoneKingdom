@@ -229,6 +229,9 @@ func _on_game_ended(result: String) -> void:
 
 
 		if result == "YOU WIN":
+			var main = get_tree().get_first_node_in_group("main")
+			if main and main._music:
+				main._music.stop()
 			var victory_sfx = AudioStreamPlayer.new()
 			victory_sfx.stream = preload("res://audio/244022__deathtomayo__victory-rock-guitar-tapping.wav")
 			victory_sfx.volume_db = -55.0
@@ -236,6 +239,9 @@ func _on_game_ended(result: String) -> void:
 			victory_sfx.play()
 			
 		elif result == "YOU LOSE":
+			var main = get_tree().get_first_node_in_group("main")
+			if main and main._music:
+				main._music.stop()
 			var defeat_sfx = AudioStreamPlayer.new()
 			defeat_sfx.stream = preload("res://audio/171673__leszek_szary__failure-1.wav")
 			defeat_sfx.volume_db = -50.0
