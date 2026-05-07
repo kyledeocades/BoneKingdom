@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://d27ya8nyyf05o" path="res://scripts/managers/SpawnManager.gd" id="8_spawn_mgr"]
 [ext_resource type="Script" uid="uid://5pnen0wi2ipb" path="res://scripts/managers/UnitManager.gd" id="9_unit_mgr"]
 [ext_resource type="Script" uid="uid://u7yp5ybf1p0n" path="res://scripts/systems/CombatSystem.gd" id="10_combat_sys"]
-[ext_resource type="Texture2D" uid="uid://jp3ghcti2ohs" path="res://underworld_bg.png" id="10_cvmbd"]
+[ext_resource type="Texture2D" uid="uid://jp3ghcti2ohs" path="res://data/backgrounds/bg_underworld.png" id="10_cvmbd"]
 [ext_resource type="Script" uid="uid://bfnedn5abyofv" path="res://scripts/units/Mine.gd" id="11_mwfav"]
 [ext_resource type="Script" uid="uid://nh8tvo6fo1yc" path="res://scripts/systems/WorkerSystem.gd" id="11_worker_sys"]
 [ext_resource type="Texture2D" uid="uid://cphsd38py082g" path="res://sprites/Bone_Pile/bone_pile.png" id="12_3p2gp"]
@@ -51,6 +51,13 @@ script = ExtResource("12_ui_ctrl")
 texture_repeat = 3
 position = Vector2(640, 360)
 scale = Vector2(0.81, 0.81)
+texture = ExtResource("10_cvmbd")
+region_rect = Rect2(0, 0, 4000, 720)
+
+[node name="BackgroundMirror" type="Sprite2D" parent="." unique_id=1213784103]
+texture_repeat = 3
+position = Vector2(640, 360)
+scale = Vector2(-0.81, 0.81)
 texture = ExtResource("10_cvmbd")
 region_rect = Rect2(0, 0, 4000, 720)
 

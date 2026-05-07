@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jp3ghcti2ohs"
-path="res://.godot/imported/underworld_bg.png-1bdb74bd7c074ff93c84d8041fe62ff6.ctex"
+uid="uid://joxfmh3kmhb1"
+path="res://.godot/imported/bg_plains.jpg-aa1722537a1095476b54ce2d4e82ce0b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://underworld_bg.png"
-dest_files=["res://.godot/imported/underworld_bg.png-1bdb74bd7c074ff93c84d8041fe62ff6.ctex"]
+source_file="res://data/backgrounds/bg_plains.jpg"
+dest_files=["res://.godot/imported/bg_plains.jpg-aa1722537a1095476b54ce2d4e82ce0b.ctex"]
 
 [params]
 
