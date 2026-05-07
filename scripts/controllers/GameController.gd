@@ -15,10 +15,13 @@ var _spawn_manager: Node
 var _unit_manager: Node
 var _ui_controller: Node
 var _unit_catalog: Node
+var _stage_manager: Node
 var _enemy_spawn_timer: Timer
 
 var _pause_menu: PauseMenu
 var _result_overlay: GameResultOverlay
+
+var _stage_config: StageConfig
 
 # Track cooldowns for each unit type
 var _unit_cooldowns: Dictionary = {}  # unit_id -> time remaining
@@ -33,6 +36,7 @@ func _ready():
 	_unit_manager = $UnitManager
 	_ui_controller = $UIController
 	_unit_catalog = $UnitCatalog
+	_stage_manager = $StageManager
 	
 	# Validate systems
 	assert(_game_state != null, "GameState not found")
@@ -41,6 +45,7 @@ func _ready():
 	assert(_unit_manager != null, "UnitManager not found")
 	assert(_ui_controller != null, "UIController not found")
 	assert(_unit_catalog != null, "UnitCatalog not found")
+	assert(_stage_manager != null, "StageManager not found")
 	
 	# Spawn UI overlays
 	_setup_overlays()
@@ -48,7 +53,23 @@ func _ready():
 	# Wait for all child systems to initialize
 	await get_tree().process_frame
 	
-	# Setup UI
+	# Load and apply default stage (can be overridden before _ready)
+	if not _stage_manager.load_and_apply_stage("default"):
+		push_error("Failed to load default stage")
+	
+	_stage_config = _stage_manager.get_current_stage()
+	assert(_stage_config != null, "Stage config not loaded")
+	
+	# Apply resource rate to spawn manager
+	_spawn_manager.set_resource_rate(_stage_config.resource_rate)
+	
+	# Setup UI with allowed units from stage
+	print("DEBUG: Building spawn buttons...")
+	print("DEBUG: Starting bones: ", _game_state.bones)
+	var units = _unit_catalog.get_player_spawn_units()
+	print("DEBUG: Available player units: ", units.size())
+	for u in units:
+		print("  - ", u.unit_id, " (cost: ", u.cost, ")")
 	_ui_controller.build_spawn_buttons(_on_player_spawn_button_pressed)
 	
 	# Subscribe to events

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StageConfig" format=3 uid="uid://dy3xqpq5j1msrw"]
+
+[ext_resource type="Script" uid="uid://di1tbbkxj92f5e" path="res://scripts/managers/StageConfig.gd" id="1_stage_config"]
+
+[resource]
+script = ExtResource("1_stage_config")
+stage_id = "default"
+stage_name = "Default Stage"
+base_distance = 2000.0 # Distance from CENTER to place BASES
+mine_distance = 1000.0 # Distance FROM BASES toward CENTER to place MINES
+allowed_player_units = [] # List of unit IDs that the player can use in this stage. If empty, all units are allowed.
+allowed_enemy_units = [] # List of unit IDs that can spawn as enemies in this stage. If empty, all units are allowed.
+starting_resources = 500
+resource_rate = 1.0 
+background_path = "res://data/backgrounds/bg_underworld.png"

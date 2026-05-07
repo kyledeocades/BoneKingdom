@@ -12,6 +12,10 @@ class_name UnitCatalog
 var _stats_by_id: Dictionary = {}
 var _all_stats: Array = []
 
+# Stage restrictions (empty = no restrictions)
+var _allowed_player_units: Array[String] = []
+var _allowed_enemy_units: Array[String] = []
+
 func _ready():
 	add_to_group("unit_catalog")
 	reload_catalog()
@@ -56,16 +60,34 @@ func try_add_stats(path: String):
 func get_stats(unit_id: String):
 	return _stats_by_id.get(unit_id)
 
+## Set stage unit restrictions
+## Pass empty arrays to allow all units
+func set_stage_restrictions(allowed_player: Array[String], allowed_enemy: Array[String]) -> void:
+	_allowed_player_units = allowed_player
+	_allowed_enemy_units = allowed_enemy
+
+## Check if a unit is allowed for player
+func _is_player_unit_allowed(unit_id: String) -> bool:
+	if _allowed_player_units.is_empty():
+		return true
+	return unit_id in _allowed_player_units
+
+## Check if a unit is allowed for enemy
+func _is_enemy_unit_allowed(unit_id: String) -> bool:
+	if _allowed_enemy_units.is_empty():
+		return true
+	return unit_id in _allowed_enemy_units
+
 func get_player_spawn_units() -> Array:
 	var units: Array = []
 	for stats in _all_stats:
-		if stats.player_spawn_enabled:
+		if stats.player_spawn_enabled and _is_player_unit_allowed(stats.unit_id):
 			units.append(stats)
 	return units
 
 func get_enemy_ai_units() -> Array:
 	var units: Array = []
 	for stats in _all_stats:
-		if stats.enemy_ai_enabled:
+		if stats.enemy_ai_enabled and _is_enemy_unit_allowed(stats.unit_id):
 			units.append(stats)
 	return units
